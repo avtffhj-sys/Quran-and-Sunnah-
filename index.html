@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light" data-color="emerald">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title data-i18n="page_title">منصة القرآن والسنة | المنصة الإسلامية الشاملة</title>
+
+    <!-- ============================================================
+         تحسين محركات البحث (SEO)
+         -----------------------------------------------------------
+         مهم: بعد رفع الموقع على نطاقك الحقيقي، استبدل
+         "https://REPLACE-WITH-YOUR-DOMAIN.com" أدناه (في وسمي
+         canonical و og:url) برابط موقعك الفعلي، وكذلك رابط الصورة
+         في og:image إن رغبت بصورة مخصصة للمشاركة على وسائل التواصل.
+    ============================================================ -->
+    <meta name="description" content="منصة إسلامية شاملة مجانية: استمع لتلاوات القرآن الكريم بأصوات القرّاء، اقرأ التفسير، تصفح الأحاديث النبوية الصحيحة، اطّلع على فتاوى موثوقة، احصل على أذكار وأدعية يومية، تعرّف على أوقات الصلاة في مدينتك، واستخدم أدوات إسلامية متعددة في مكان واحد.">
+    <meta name="keywords" content="القرآن الكريم, تلاوات القرآن, تفسير القرآن, الأحاديث النبوية, فتاوى إسلامية, أذكار وأدعية, أوقات الصلاة, حاسبة الزكاة, تطبيق إسلامي, موقع إسلامي شامل">
+    <meta name="author" content="منصة القرآن والسنة">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN.com/">
+
+    <!-- Open Graph (فيسبوك، واتساب، تليجرام...) -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    <meta property="og:title" content="منصة القرآن والسنة | المنصة الإسلامية الشاملة">
+    <meta property="og:description" content="استمع للقرآن الكريم، اقرأ الحديث والتفسير، اطّلع على الفتاوى، أذكار وأدعية، أوقات الصلاة، وأدوات إسلامية متعددة، مجانًا في مكان واحد.">
+    <meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN.com/">
+    <meta property="og:image" content="https://REPLACE-WITH-YOUR-DOMAIN.com/icon.svg">
+    <meta property="og:site_name" content="منصة القرآن والسنة">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="منصة القرآن والسنة | المنصة الإسلامية الشاملة">
+    <meta name="twitter:description" content="استمع للقرآن الكريم، اقرأ الحديث والتفسير، اطّلع على الفتاوى، أذكار وأدعية، أوقات الصلاة، وأدوات إسلامية متعددة، مجانًا في مكان واحد.">
+    <meta name="twitter:image" content="https://REPLACE-WITH-YOUR-DOMAIN.com/icon.svg">
+
+    <!-- بيانات منظّمة (Structured Data) لمساعدة جوجل على فهم الموقع -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "منصة القرآن والسنة",
+        "url": "https://REPLACE-WITH-YOUR-DOMAIN.com/",
+        "description": "منصة إسلامية شاملة مجانية: تلاوات القرآن الكريم، التفسير، الأحاديث النبوية، الفتاوى، أذكار وأدعية، أوقات الصلاة، وأدوات إسلامية متعددة.",
+        "inLanguage": "ar"
+    }
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <!-- Google Fonts: Cairo & Amiri & Scheherazade New & Noto Naskh Arabic
+         تسريع بدء التشغيل: نجلب هذين الملفين بأسلوب "غير معطّل للعرض" (preload ثم
+         تفعيل كـ stylesheet بعد التحميل) بدل تحميلهما بشكل يوقف رسم الصفحة الأولى،
+         مع الإبقاء على noscript كبديل كامل لأي متصفح لا يدعم onload على link. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap"></noscript>
+
+    <!-- FontAwesome Icons: نفس أسلوب التحميل غير المعطّل للعرض، دون حذف أي أيقونة من المكتبة -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <!-- تسريع تشغيل الصوت: فتح اتصال مبكر بخوادم القرآن الصوتية قبل الحاجة إليها فعليًا،
+         حتى لا يبطئ الاتصال الأول (DNS + TLS) بداية تشغيل أي سورة -->
+    <link rel="preconnect" href="https://mp3quran.net" crossorigin>
+    <link rel="dns-prefetch" href="https://mp3quran.net">
+    <link rel="preconnect" href="https://server8.mp3quran.net" crossorigin>
+    <link rel="dns-prefetch" href="https://server8.mp3quran.net">
+    <link rel="preconnect" href="https://archive.org" crossorigin>
+    <link rel="dns-prefetch" href="https://archive.org">
+    <!-- PWA: تطبيق ويب تقدمي يدعم التصفح بلا إنترنت -->
+    <link rel="manifest" href="manifest.json">
+    <!-- ملاحظة: Safari على آيفون/آيباد لا يدعم SVG إطلاقًا لأيقونة الشاشة
+         الرئيسية (apple-touch-icon)، لذا أضفنا نسخة PNG مخصصة بحجم 180×180
+         بجانب أيقونة SVG الأصلية (تبقى مستخدمة في كل شيء آخر كما هي). -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="القرآن والسنة">
+    <meta name="theme-color" content="#10b981">
+
+    <!-- ============================================================
+         رؤوس الحماية الأساسية (Security Headers)
+         ملاحظة مهمة: بعض الرؤوس مثل X-Frame-Options و
+         Strict-Transport-Security و Access-Control-Allow-Origin (CORS)
+         لا يمكن ضبطها عبر <meta> إطلاقًا، لأنها رؤوس HTTP حقيقية يجب
+         أن يرسلها الخادم (Server) مع الاستجابة. لذلك تم توفير ملف
+         "security-headers.conf" (Nginx) ونموذج Node/Express داخل
+         README الخاص بالأمان لضبطها على مستوى الخادم عند النشر.
+         ما يلي هو الحد الأقصى الممكن ضبطه من داخل HTML نفسه: ========= -->
+    <!-- تنبيه نشر: النطاق REPLACE-WITH-YOUR-BACKEND-URL.onrender.com أدناه في connect-src
+         يجب أن يطابق بالضبط قيمة PRODUCTION_BACKEND_URL المعرّفة أسفل الصفحة داخل <script>،
+         وإلا سيمنع المتصفح الاتصال بالخادم الخلفي بسبب سياسة الأمان (CSP). -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+        font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:;
+        img-src 'self' data: blob:;
+        media-src 'self' https: blob:;
+        connect-src 'self' http://localhost:5000 https://fatwa-api-p9op.onrender.com https://api.alquran.cloud https://mp3quran.net https://*.mp3quran.net https://api.aladhan.com https://cdn.jsdelivr.net https://stream.radiojar.com https://backup.qurango.net https://archive.org https://*.archive.org;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+        frame-ancestors 'self';
+    ">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Global Floating Audio Player[cite: 4] -->
+    <div class="global-audio-player glass-panel glass-header">
+        <div class="player-info">
+            <div class="player-logo-icon">
+                <i class="fa-solid fa-book-quran"></i>
+            </div>
+            <div>
+                <h4 id="current-track-title" style="font-size: 1rem; font-weight: 900; color: var(--primary);" data-i18n="player_title">منصة القرآن والسنة</h4>
+                <span id="current-track-subtitle" style="font-size: 0.75rem; color: var(--text-muted); display: none;"></span>
+            </div>
+            <button class="fav-star-btn" id="player-fav-btn" onclick="toggleFavoriteCurrentSurah()" title="أضف السورة الحالية إلى المفضلة" style="display:none; margin-inline-start:4px;"><i class="fa-solid fa-star"></i></button>
+        </div>
+
+        <div class="player-center-area">
+            <div class="player-controls">
+                <button id="stop-btn" title="إيقاف كامل"><i class="fa-solid fa-stop"></i></button>
+                <button id="backward-btn" title="تأخير 10 ثواني"><i class="fa-solid fa-backward-step"></i></button>
+                <button id="play-pause-btn" class="main-play" title="تشغيل / إيقاف"><i class="fa-solid fa-play"></i></button>
+                <button id="forward-btn" title="تقديم 10 ثواني"><i class="fa-solid fa-forward-step"></i></button>
+                <button id="volume-down-btn" title="خفض الصوت"><i class="fa-solid fa-volume-low"></i></button>
+                <button id="volume-up-btn" title="رفع الصوت"><i class="fa-solid fa-volume-high"></i></button>
+            </div>
+            <div class="player-progress-container">
+                <span id="current-time" style="font-size: 0.7rem; color: var(--text-muted);">00:00</span>
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="total-duration" style="font-size: 0.7rem; color: var(--text-muted);">00:00</span>
+            </div>
+        </div>
+
+        <div class="player-volume-side">
+            <button class="tool-btn" id="volume-toggle-btn" style="width: 36px; height: 36px;" title="إظهار / إخفاء شريط الصوت"><i class="fa-solid fa-volume-high" id="volume-icon"></i></button>
+
+            <div class="volume-slider-wrapper" id="volume-slider-wrapper">
+                <i class="fa-solid fa-volume-low" style="font-size: 0.75rem; color: var(--text-muted); cursor: pointer;" title="كتم / إلغاء الكتم" id="volume-mute-quick"></i>
+                <div class="volume-bar" id="volume-bar" title="تحكم بمستوى الصوت">
+                    <div class="volume-fill" id="volume-fill"></div>
+                </div>
+                <i class="fa-solid fa-volume-high" style="font-size: 0.75rem; color: var(--text-muted);"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Audio Element[cite: 4] -->
+    <audio id="audio-element" preload="auto"></audio>
+
+    <!-- Header & Navigation[cite: 4] -->
+    <header class="main-header glass-panel">
+        <div class="logo-area">
+            <div class="logo-icon-box">
+                <i class="fa-solid fa-kaaba"></i>
+            </div>
+            <div class="logo-text">
+                <h1><span data-i18n="logo_part1">منصة</span> <span data-i18n="logo_part2">القرآن والسنة</span></h1>
+                <span class="sub-title" data-i18n="logo_subtitle">المنصة الإسلامية الشاملة والمتطورة</span>
+            </div>
+        </div>
+
+        <div class="nav-links-outer">
+        <nav class="nav-links" data-scroll-hint>
+            <a href="#" onclick="switchPage('home', event)" class="nav-item active" data-target="home"><i class="fa-solid fa-house"></i><span data-i18n="nav_home">الرئيسية</span></a>
+            <a href="#" onclick="switchPage('quran', event)" class="nav-item" data-target="quran"><i class="fa-solid fa-book-quran"></i><span data-i18n="nav_quran">القرآن الكريم</span></a>
+            <a href="#" onclick="switchPage('tafseer', event)" class="nav-item" data-target="tafseer"><i class="fa-solid fa-book-open"></i><span data-i18n="nav_tafseer">التفسير</span></a>
+            <a href="#" onclick="switchPage('hadith', event)" class="nav-item" data-target="hadith"><i class="fa-solid fa-scroll"></i><span data-i18n="nav_hadith">الحديث</span></a>
+            <a href="#" onclick="switchPage('azkar', event)" class="nav-item" data-target="azkar"><i class="fa-solid fa-hands-praying"></i><span data-i18n="nav_azkar">الأذكار</span></a>
+            <a href="#" onclick="switchPage('fatwa', event)" class="nav-item" data-target="fatwa"><i class="fa-solid fa-scale-balanced"></i><span data-i18n="nav_fatwa">الفتاوى</span></a>
+            <a href="#" onclick="switchPage('rafiq', event)" class="nav-item" data-target="rafiq"><i class="fa-solid fa-seedling"></i><span data-i18n="nav_rafiq">الرفيق الروحي</span></a>
+            <a href="#" onclick="switchPage('murshid', event)" class="nav-item" data-target="murshid"><i class="fa-solid fa-comment-dots"></i><span data-i18n="nav_murshid">مرشد</span></a>
+            <a href="#" onclick="switchPage('radio', event)" class="nav-item" data-target="radio"><i class="fa-solid fa-tower-broadcast"></i><span data-i18n="nav_radio">الإذاعات</span></a>
+            <a href="#" onclick="switchPage('sounds', event)" class="nav-item" data-target="sounds"><i class="fa-solid fa-microphone-lines"></i><span data-i18n="nav_sounds">مواعظ</span></a>
+            <a href="#" onclick="switchPage('alerts', event)" class="nav-item" data-target="alerts"><i class="fa-solid fa-bell"></i><span data-i18n="nav_alerts">التنبيهات</span></a>
+            <a href="#" onclick="switchPage('about', event)" class="nav-item" data-target="about"><i class="fa-solid fa-circle-info"></i><span data-i18n="nav_about">من نحن</span></a>
+            <a href="#" onclick="switchPage('account', event)" class="nav-item" data-target="account"><i class="fa-solid fa-user"></i><span data-i18n="nav_account">حسابي</span></a>
+        </nav>
+        <span class="scroll-hint-fade" aria-hidden="true"></span>
+        <span class="scroll-hint-arrow" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+        </div>
+
+        <div class="toolbar">
+            <div class="theme-dropdown">
+                <button class="tool-btn" id="theme-menu-btn" title="تغيير الثيم اللوني"><i class="fa-solid fa-palette"></i></button>
+                <div class="theme-menu glass-panel" id="theme-menu">
+                    <button class="color-option" onclick="changeColorTheme('emerald')"><span class="color-dot" style="background:#10b981;"></span>زمردي رمضاني</button>
+                    <button class="color-option" onclick="changeColorTheme('cyan')"><span class="color-dot" style="background:#06b6d4;"></span>سيان عميق</button>
+                    <button class="color-option" onclick="changeColorTheme('gold')"><span class="color-dot" style="background:#d97706;"></span>ذهبي ملكي</button>
+                    <button class="color-option" onclick="changeColorTheme('purple')"><span class="color-dot" style="background:#8b5cf6;"></span>أرجواني هادئ</button>
+                    <button class="color-option" onclick="changeColorTheme('sunset')"><span class="color-dot" style="background:#f97316;"></span>برتقالي غروب</button>
+                </div>
+            </div>
+
+            <div class="theme-dropdown">
+                <button class="tool-btn" id="lang-menu-btn" title="تغيير لغة المنصة"><i class="fa-solid fa-globe"></i></button>
+                <div class="theme-menu glass-panel" id="lang-menu">
+                    <button class="color-option" onclick="changeLanguage('ar')"><span class="color-dot" style="background:#10b981;"></span>العربية (Arabic)</button>
+                    <button class="color-option" onclick="changeLanguage('en')"><span class="color-dot" style="background:#3b82f6;"></span>English (الإنجليزية)</button>
+                    <button class="color-option" onclick="changeLanguage('fr')"><span class="color-dot" style="background:#f59e0b;"></span>Français (الفرنسية)</button>
+                    <button class="color-option" onclick="changeLanguage('es')"><span class="color-dot" style="background:#ef4444;"></span>Español (الإسبانية)</button>
+                    <button class="color-option" onclick="changeLanguage('de')"><span class="color-dot" style="background:#8b5cf6;"></span>Deutsch (الألمانية)</button>
+                    <button class="color-option" onclick="changeLanguage('zh')"><span class="color-dot" style="background:#ec4899;"></span>中文 (الصينية)</button>
+                    <button class="color-option" onclick="changeLanguage('ru')"><span class="color-dot" style="background:#6366f1;"></span>Русский (الروسية)</button>
+                </div>
+            </div>
+
+            <button class="tool-btn" id="mode-toggle-btn" title="تبديل الوضع الليلي والنهاري"><i class="fa-solid fa-moon"></i></button>
+            <button class="tool-btn" id="account-btn" onclick="openAccountModal()" title="حسابي"><i class="fa-solid fa-user"></i></button>
+        </div>
+    </header>
+
+    <!-- Main Container with Pages[cite: 4] -->
+    <div class="container" style="margin-top: 40px;">
+
+        <!-- 1. الرئيسية[cite: 4] -->
+        <div id="page-home" class="page-view active-page">
+            <section class="hero-section">
+                <div class="hero-banner glass-panel">
+                    <span style="background: var(--glow); color: var(--primary); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;" data-i18n="hero_badge">المنصة الرقمية المتطورة لعام 2026</span>
+                    <h2 data-i18n="hero_title">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</h2>
+                    <p data-i18n="hero_desc">استمتع بتجربة إسلامية متكاملة تدمج أروع التلاوات الصوتية، موسوعة الأحاديث النبوية، الأذكار التفاعلية الذكية، ومواقيت الصلاة.</p>
+                    <a href="#" onclick="switchPage('quran', event)" class="btn-primary"><i class="fa-solid fa-compass"></i> <span data-i18n="hero_btn">ابدأ تلاوة القرآن</span></a>
+                </div>
+
+                <div class="daily-quote-card glass-panel">
+                    <div class="quote-header-row">
+                        <span class="quote-badge"><i class="fa-solid fa-star-and-crescent"></i> آية وخاطرة اليوم</span>
+                        <button class="btn-action" id="next-quote-btn"><i class="fa-solid fa-rotate"></i> آية أخرى</button>
+                    </div>
+                    <div class="quote-text" id="daily-quote-text">"إِنَّ هَذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ وَيُبَشِّرُ الْمُؤْمِنِينَ الَّذِينَ يَعْمَلُونَ الصَّالِحَاتِ أَنَّ لَهُمْ أَجْرًا كَبِيرًا"</div>
+                    <div class="quote-tafseer-box" id="daily-quote-tafseer">
+                        <strong>التفسير المختصر:</strong> إن هذا القرآن يرشد الناس إلى الطريق المستقيم والأعدل، ويبشر المؤمنين بالأجر العظيم.
+                    </div>
+                    <div class="quote-actions">
+                        <button class="btn-action" id="copy-quote-btn"><i class="fa-solid fa-copy"></i> نسخ</button>
+                        <button class="btn-action" id="share-quote-btn"><i class="fa-solid fa-share-nodes"></i> مشاركة</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- مواقيت الصلاة[cite: 4] -->
+            <section class="prayer-times-home-section">
+                <div class="section-header">
+                    <div class="section-title"><i class="fa-solid fa-clock"></i><span data-i18n="title_prayer_times">مواقيت الصلاة اليومية والعداد المباشر</span></div>
+                    <span id="prayer-date-display" class="quote-badge">جاري تحميل التاريخ...</span>
+                </div>
+                <div class="glass-panel" style="padding: 25px;">
+                    <div class="prayer-location-bar">
+                        <div class="prayer-location-info"><i class="fa-solid fa-location-dot"></i><span id="prayer-city-name">المكلا - حضرموت (اليمن)</span></div>
+                        <div class="prayer-selectors">
+                            <select id="prayer-city-select" class="select-custom" style="padding: 8px 12px; min-width: 180px;" onchange="changePrayerCity(this.value)">
+                                <option value="Sanaa,Yemen">صنعاء (اليمن)</option>
+                                <option value="Aden,Yemen">عدن (اليمن)</option>
+                                <option value="Al Mukalla,Yemen" selected>المكلا - حضرموت (اليمن)</option>
+                                <option value="Makkah,Saudi Arabia">مكة المكرمة (السعودية)</option>
+                                <option value="Madinah,Saudi Arabia">المدينة المنورة (السعودية)</option>
+                                <option value="Riyadh,Saudi Arabia">الرياض (السعودية)</option>
+                                <option value="Cairo,Egypt">القاهرة (مصر)</option>
+                                <option value="Jerusalem,Palestine">القدس الشريف (فلسطين)</option>
+                                <option value="Dubai,United Arab Emirates">دبي (الإمارات)</option>
+                                <option value="Abu Dhabi,United Arab Emirates">أبوظبي (الإمارات)</option>
+                                <option value="Amman,Jordan">عمان (الأردن)</option>
+                                <option value="Kuwait City,Kuwait">الكويت (الكويت)</option>
+                                <option value="Doha,Qatar">الدوحة (قطر)</option>
+                                <option value="Manama,Bahrain">المنامة (البحرين)</option>
+                                <option value="Muscat,Oman">مسقط (عُمان)</option>
+                                <option value="Baghdad,Iraq">بغداد (العراق)</option>
+                                <option value="Damascus,Syria">دمشق (سوريا)</option>
+                                <option value="Beirut,Lebanon">بيروت (لبنان)</option>
+                                <option value="Khartoum,Sudan">الخرطوم (السودان)</option>
+                                <option value="Tripoli,Libya">طرابلس (ليبيا)</option>
+                                <option value="Tunis,Tunisia">تونس (تونس)</option>
+                                <option value="Algiers,Algeria">الجزائر (الجزائر)</option>
+                                <option value="Rabat,Morocco">الرباط (المغرب)</option>
+                                <option value="Nouakchott,Mauritania">نواكشوط (موريتانيا)</option>
+                                <option value="Mogadishu,Somalia">مقديشو (الصومال)</option>
+                                <option value="Djibouti,Djibouti">جيبوتي (جيبوتي)</option>
+                                <option value="Moroni,Comoros">موروني (جزر القمر)</option>
+                            </select>
+                            <button class="btn-action" id="prayer-geo-btn" onclick="usePrayerGeolocation()"><i class="fa-solid fa-location-crosshairs"></i> موقعي الحالي</button>
+                            <button class="btn-action" onclick="fetchPrayerTimesData(true)"><i class="fa-solid fa-arrows-rotate"></i> تحديث</button>
+                        </div>
+                    </div>
+
+                    <div class="prayer-times-container" id="prayer-times-cards"></div>
+
+                    <!-- عداد الصلاة القادمة المباشر[cite: 4] -->
+                    <div class="prayer-countdown-box">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i class="fa-solid fa-hourglass-half" style="color:var(--primary); font-size:1.4rem;"></i>
+                            <span style="font-weight:700; font-size:1.05rem;">المتبقي على صلاة <span id="next-prayer-name" style="color:var(--primary); font-weight:900;">--</span>:</span>
+                        </div>
+                        <div id="prayer-countdown-timer" style="font-weight:900; font-size:1.6rem; color:var(--primary); letter-spacing:1px; direction:ltr;">00:00:00</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- حديث اليوم[cite: 4] -->
+            <section class="daily-hadith-home-section">
+                <div class="section-header"><div class="section-title"><i class="fa-solid fa-sun"></i><span data-i18n="title_hadith_today">حديث اليوم</span></div></div>
+                <div class="glass-panel" style="padding: 30px; display: flex; flex-direction: column; gap: 15px; border-right: 5px solid var(--primary);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <span id="home-hadith-source" class="quote-badge">متفق عليه</span>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <button class="btn-action" style="padding: 8px 16px; font-size: 1.1rem; font-weight: 900;" onclick="changeHomeHadithFontSize(-1)" title="تصغير الخط">A-</button>
+                            <button class="btn-action" style="padding: 8px 16px; font-size: 1.1rem; font-weight: 900;" onclick="changeHomeHadithFontSize(1)" title="تكبير الخط">A+</button>
+                            <button class="btn-action" id="home-next-hadith-btn" title="حديث آخر"><i class="fa-solid fa-rotate"></i> حديث آخر</button>
+                        </div>
+                    </div>
+                    <div id="home-hadith-text">"إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوْ امْرَأَةٍ يَنْكِحُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ."</div>
+                </div>
+            </section>
+
+            <!-- الرسالة اليومية -->
+            <section class="daily-message-section">
+                <div class="section-header"><div class="section-title"><i class="fa-solid fa-feather-pointed"></i><span data-i18n="title_daily_message">الرسالة اليومية</span></div></div>
+                <div class="daily-message-card dm-bg-1" id="daily-message-card">
+                    <i class="fa-solid fa-quote-right daily-message-quote-icon"></i>
+                    <p id="daily-message-text">جاري تحميل الرسالة...</p>
+                    <span class="daily-message-badge" id="daily-message-badge"></span>
+                </div>
+            </section>
+
+            <!-- التقويم الهجري والميلادي -->
+            <section class="islamic-calendar-section">
+                <div class="section-header"><div class="section-title"><i class="fa-solid fa-calendar-days"></i><span data-i18n="title_calendar">التقويم الهجري والميلادي</span></div></div>
+                <div class="glass-panel">
+                    <div class="dual-date-row">
+                        <div class="date-box">
+                            <div class="date-box-icon"><i class="fa-solid fa-moon"></i></div>
+                            <span class="date-box-label">التاريخ الهجري</span>
+                            <span class="date-box-main" id="hijri-date-main">--</span>
+                            <span class="date-box-sub" id="hijri-date-sub"></span>
+                        </div>
+                        <div class="date-box">
+                            <div class="date-box-icon"><i class="fa-regular fa-calendar"></i></div>
+                            <span class="date-box-label">التاريخ الميلادي</span>
+                            <span class="date-box-main" id="gregorian-date-main">--</span>
+                            <span class="date-box-sub" id="gregorian-date-sub"></span>
+                        </div>
+                    </div>
+
+                    <div class="mini-calendar-wrap">
+                        <div class="mini-calendar-header">
+                            <div class="mini-calendar-nav"><button id="mini-cal-prev" title="الشهر السابق"><i class="fa-solid fa-chevron-right"></i></button></div>
+                            <h4 id="mini-calendar-title">--</h4>
+                            <div class="mini-calendar-nav"><button id="mini-cal-next" title="الشهر التالي"><i class="fa-solid fa-chevron-left"></i></button></div>
+                        </div>
+                        <div class="mini-calendar-grid" id="mini-calendar-grid"></div>
+                    </div>
+
+                    <div class="upcoming-occasions-wrap">
+                        <h4><i class="fa-solid fa-star-and-crescent" style="color:var(--primary); margin-left:6px;"></i>مناسبات إسلامية قادمة</h4>
+                        <div id="upcoming-occasions-list"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- حدث في مثل هذا اليوم الهجري -->
+            <section class="on-this-day-section">
+                <div class="section-header"><div class="section-title"><i class="fa-solid fa-clock-rotate-left"></i><span data-i18n="title_on_this_day">حدث في مثل هذا اليوم الهجري</span></div></div>
+                <p style="margin:-8px 0 12px; font-size:0.85rem; opacity:0.7;">محطات من الفتوحات والمعارك وسِير القادة والفاتحين المسلمين عبر التاريخ الإسلامي، اضغط زر "حدث آخر" للتنقل بينها.</p>
+                <div class="otd-card dm-bg-1" id="on-this-day-card">
+                    <i class="fa-solid fa-clock-rotate-left otd-icon"></i>
+                    <p id="on-this-day-text">جاري التحميل...</p>
+                    <span class="otd-date-badge" id="on-this-day-badge"></span>
+                    <button class="btn-action" id="on-this-day-next-btn" title="التنقل إلى حدث تاريخي آخر" style="z-index:1;"><i class="fa-solid fa-rotate"></i> حدث آخر</button>
+                </div>
+            </section>
+
+            <!-- خدمات إسلامية حديثة -->
+            <section class="modern-services-home-section">
+                <div class="section-header"><div class="section-title"><i class="fa-solid fa-layer-group"></i><span data-i18n="title_modern_services">خدمات إسلامية حديثة</span></div></div>
+                <div class="modern-services-grid">
+                    <div class="modern-service-card glass-panel" data-service="zakat" onclick="toggleServicePanel('zakat')">
+                        <div class="service-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                        <div class="service-title">حاسبة الزكاة</div>
+                        <div class="service-desc">احسب زكاة أموالك ومدخراتك بدقة</div>
+                    </div>
+                    <div class="modern-service-card glass-panel" data-service="tasbih" onclick="toggleServicePanel('tasbih')">
+                        <div class="service-icon"><i class="fa-solid fa-hand-sparkles"></i></div>
+                        <div class="service-title">السبحة الإلكترونية</div>
+                        <div class="service-desc">عداد تسبيح رقمي تفاعلي</div>
+                    </div>
+                </div>
+
+                <!-- لوحة حاسبة الزكاة -->
+                <div class="service-panel glass-panel" id="panel-zakat">
+                    <div class="service-panel-header">
+                        <h3><i class="fa-solid fa-hand-holding-dollar"></i> حاسبة الزكاة</h3>
+                        <button class="service-close-btn" onclick="toggleServicePanel('zakat')"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="zakat-form">
+                        <div class="zakat-field">
+                            <label>النقود والمدخرات</label>
+                            <input type="number" id="zakat-cash" min="0" placeholder="0" oninput="calculateZakat()">
+                        </div>
+                        <div class="zakat-field">
+                            <label>قيمة الذهب والفضة</label>
+                            <input type="number" id="zakat-gold" min="0" placeholder="0" oninput="calculateZakat()">
+                        </div>
+                        <div class="zakat-field">
+                            <label>عروض التجارة</label>
+                            <input type="number" id="zakat-trade" min="0" placeholder="0" oninput="calculateZakat()">
+                        </div>
+                        <div class="zakat-field">
+                            <label>الديون المستحقة عليك</label>
+                            <input type="number" id="zakat-debts" min="0" placeholder="0" oninput="calculateZakat()">
+                        </div>
+                    </div>
+                    <div class="zakat-result">
+                        <div class="zakat-result-label">مقدار الزكاة الواجبة (2.5%)</div>
+                        <div class="zakat-result-value" id="zakat-result-value">0</div>
+                        <div class="zakat-result-note">تُحسب الزكاة إذا بلغ المجموع نصاب الزكاة تقريباً (ما يعادل 85 جرام ذهب)، وهذه أداة إرشادية فقط ولا تغني عن سؤال أهل العلم</div>
+                    </div>
+                </div>
+
+                <!-- لوحة السبحة الإلكترونية -->
+                <div class="service-panel glass-panel" id="panel-tasbih">
+                    <div class="service-panel-header">
+                        <h3><i class="fa-solid fa-hand-sparkles"></i> السبحة الإلكترونية</h3>
+                        <button class="service-close-btn" onclick="toggleServicePanel('tasbih')"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="tasbih-wrap">
+                        <div class="tasbih-select-row" id="tasbih-select-row"></div>
+                        <div class="tasbih-current-text" id="tasbih-current-text">سُبْحَانَ اللَّهِ</div>
+                        <button class="tasbih-circle-btn" onclick="incrementTasbih()"><span id="tasbih-count">0</span><span>/ <span id="tasbih-target">33</span></span></button>
+                        <div class="tasbih-actions">
+                            <button class="btn-action" onclick="resetTasbih()"><i class="fa-solid fa-rotate-left"></i> إعادة تعيين</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 2. القرآن الكريم[cite: 4] -->
+        <section id="page-quran" class="page-view">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-book-quran"></i><span data-i18n="title_quran">القرآن الكريم (جميع القراء والسور وأشهر القراءات)</span></div>
+            </div>
+            <div class="quran-controls-panel">
+                <select class="select-custom" id="reciter-select"><option value="">جاري تحميل القراء...</option></select>
+                <input type="text" id="reciter-search-input" class="select-custom" placeholder="البحث عن قارئ..." />
+                <select class="select-custom" id="moshaf-select"><option value="">اختر الرواية / القراءة...</option></select>
+                <input type="text" id="surah-search-input" class="select-custom" placeholder="البحث عن السورة..." />
+            </div>
+            <div id="riwaya-fallback-note" style="display:none; margin: 0 4px 10px; padding: 8px 14px; border-radius: 10px; background: rgba(212,175,55,0.12); color: var(--primary); font-size: 0.85rem; font-weight: 700;"></div>
+            <div class="quran-grid" id="surah-grid"></div>
+        </section>
+
+        <!-- 3. التفسير[cite: 4] -->
+        <section id="page-tafseer" class="page-view">
+            <div class="section-header"><div class="section-title"><i class="fa-solid fa-book-open"></i><span data-i18n="title_tafseer">موسوعة التفسير الشامل والتدبر</span></div></div>
+            <div class="glass-panel tafseer-box">
+                <div class="quran-controls-panel">
+                    <select class="select-custom" id="tafseer-edition-select"><option value="ar-tafsir-muyassar">التفسير الميسر</option></select>
+                    <select class="select-custom" id="tafseer-surah-select"></select>
+                    <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 150px;">
+                        <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">رقم الآية:</label>
+                        <input type="number" id="tafseer-ayah-input" value="1" min="1" max="286" class="select-custom" style="padding: 12px 15px;" />
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                    <button class="btn-primary" id="fetch-tafseer-btn"><i class="fa-solid fa-search"></i> جلب التفسير</button>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-text-height"></i> حجم الخط</span>
+                        <button class="btn-action" style="padding: 8px 16px; font-size: 1.1rem; font-weight: 900;" onclick="changeTafseerFontSize(-1)" title="تصغير الخط">A-</button>
+                        <button class="btn-action" style="padding: 8px 16px; font-size: 1.1rem; font-weight: 900;" onclick="changeTafseerFontSize(1)" title="تكبير الخط">A+</button>
+                    </div>
+                </div>
+                <div class="tafseer-text-content" id="tafseer-content-box">اختر السورة، ورقم الآية ثم اضغط على "جلب التفسير" لعرض النص.</div>
+            </div>
+        </section>
+
+        <!-- 4. الحديث[cite: 4] -->
+        <section id="page-hadith" class="page-view">
+            <div class="section-header"><div class="section-title"><i class="fa-solid fa-scroll"></i><span data-i18n="title_hadith_encyclopedia">موسوعة الأحاديث النبوية الشريفة الشاملة</span></div></div>
+            <div class="glass-panel hadith-display">
+                <div class="quran-controls-panel">
+                    <select class="select-custom" id="hadith-book-select" onchange="fetchHadithFromApi()">
+                        <option value="ara-bukhari">صحيح البخاري</option>
+                        <option value="ara-muslim">صحيح مسلم</option>
+                        <option value="ara-abudawud">سنن أبي داود</option>
+                        <option value="ara-tirmidhi">سنن الترمذي</option>
+                        <option value="ara-nasai">سنن النسائي</option>
+                        <option value="ara-ibnmajah">سنن ابن ماجه</option>
+                        <option value="ara-nawawi">الأربعون النووية</option>
+                    </select>
+                    <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 150px;">
+                        <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">رقم الحديث:</label>
+                        <input type="number" id="hadith-number-input" value="1" min="1" class="select-custom" style="padding: 12px 15px;" />
+                    </div>
+                    <button class="btn-primary" onclick="fetchHadithByNumber()"><i class="fa-solid fa-search"></i> بحث عن حديث</button>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                    <h3 id="hadith-title" style="color: var(--primary); margin: 0;">صحيح البخاري - حديث رقم (1)</h3>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <button class="fav-star-btn" id="hadith-fav-btn" onclick="toggleFavoriteCurrentHadith()" title="أضف إلى المفضلة"><i class="fa-solid fa-star"></i></button>
+                        <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-text-height"></i> حجم الخط</span>
+                        <button class="btn-action" style="padding: 8px 16px; font-size: 1.1rem; font-weight: 900;" onclick="changeHadithFontSize(-1)" title="تصغير الخط">A-</button>
+                        <button class="btn-action" style="padding: 8px 16px; font-size: 1.1rem; font-weight: 900;" onclick="changeHadithFontSize(1)" title="تكبير الخط">A+</button>
+                    </div>
+                </div>
+                <div class="hadith-container" id="hadith-display-text">"إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوْ امْرَأَةٍ يَنْكِحُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ."</div>
+                <div style="display: flex; gap: 15px; justify-content: space-between; flex-wrap:wrap;">
+                    <button class="btn-action" onclick="fetchNextApiHadith(-1)"><i class="fa-solid fa-arrow-right"></i> الحديث السابق</button>
+                    <button class="btn-primary" id="random-hadith-btn" onclick="fetchRandomApiHadith()"><i class="fa-solid fa-shuffle"></i> حديث عشوائي</button>
+                    <button class="btn-action" onclick="fetchNextApiHadith(1)">الحديث التالي <i class="fa-solid fa-arrow-left"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. الأذكار (تم تعديل وتوسيع أذكار الصباح لتكون شاملة وكافتراضي)[cite: 4] -->
+        <section id="page-azkar" class="page-view">
+            <div class="section-header"><div class="section-title"><i class="fa-solid fa-hands-praying"></i><span data-i18n="title_azkar">حصن المسلم - الأذكار والأدعية الكاملة</span></div></div>
+            <div class="azkar-tabs-wrap">
+            <div class="azkar-tabs" data-scroll-hint>
+                <button class="azkar-tab-btn active" onclick="switchAzkarCategory('sabah', event)"><i class="fa-solid fa-sun"></i><span>أذكار الصباح</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('masa', event)"><i class="fa-solid fa-cloud-moon"></i><span>أذكار المساء</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('sleep', event)"><i class="fa-solid fa-bed"></i><span>أذكار النوم</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('salah', event)"><i class="fa-solid fa-hands-praying"></i><span>أذكار بعد الصلاة</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('praise', event)"><i class="fa-solid fa-gem"></i><span>التسبيح والمغفرة</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('waking', event)"><i class="fa-solid fa-bell"></i><span>أذكار الاستيقاظ</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('misc', event)"><i class="fa-solid fa-shapes"></i><span>أذكار متفرقة</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('mosque', event)"><i class="fa-solid fa-mosque"></i><span>أذكار المسجد</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('home', event)"><i class="fa-solid fa-house"></i><span>أذكار المنزل</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('adhan', event)"><i class="fa-solid fa-volume-high"></i><span>أذكار الأذان</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('khala', event)"><i class="fa-solid fa-restroom"></i><span>أذكار الخلاء</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('food', event)"><i class="fa-solid fa-utensils"></i><span>أذكار الطعام</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('hajj', event)"><i class="fa-solid fa-kaaba"></i><span>أذكار الحج والعمرة</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('jawami', event)"><i class="fa-solid fa-hands"></i><span>جوامع الدعاء</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('virtueDua', event)"><i class="fa-solid fa-hand-holding-heart"></i><span>فضل الدعاء</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('virtueDhikr', event)"><i class="fa-solid fa-heart"></i><span>فضل الذكر</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('virtueSurah', event)"><i class="fa-solid fa-book-open"></i><span>فضل السور</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('virtueQuran', event)"><i class="fa-solid fa-book-quran"></i><span>فضل القرآن</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('names', event)"><i class="fa-solid fa-star-and-crescent"></i><span>أسماء الله الحسنى</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('dead', event)"><i class="fa-solid fa-dove"></i><span>أدعية للميت</span></button>
+                <button class="azkar-tab-btn" onclick="switchAzkarCategory('ruqyah', event)"><i class="fa-solid fa-shield-heart"></i><span>الرقية الشرعية</span></button>
+            </div>
+            <span class="scroll-hint-fade" aria-hidden="true"></span>
+            <span class="scroll-hint-arrow" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+            </div>
+            <div class="azkar-font-controls">
+                <span class="azkar-font-label"><i class="fa-solid fa-text-height"></i> حجم الخط</span>
+                <div class="azkar-font-stepper">
+                    <button type="button" class="azkar-font-btn" onclick="changeZikrFontSize(-1)" title="تصغير الخط" aria-label="تصغير الخط"><i class="fa-solid fa-minus"></i></button>
+                    <span class="azkar-font-value" id="zikr-font-value">100%</span>
+                    <button type="button" class="azkar-font-btn" onclick="changeZikrFontSize(1)" title="تكبير الخط" aria-label="تكبير الخط"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <button type="button" class="azkar-font-reset" onclick="resetZikrFontSize()" title="إعادة الضبط الافتراضي"><i class="fa-solid fa-arrow-rotate-left"></i> إعادة تعيين</button>
+            </div>
+            <div class="azkar-grid" id="azkar-container"></div>
+        </section>
+
+        <!-- 6. الفتاوى والأحكام الشرعية -->
+        <section id="page-fatwa" class="page-view">
+            <div class="section-header"><div class="section-title"><i class="fa-solid fa-scale-balanced"></i><span data-i18n="title_fatwa">فتاوى وأحكام شرعية</span></div></div>
+
+            <!-- بطاقة البحث -->
+            <div class="fatwa-search-card glass-panel">
+                <div class="fatwa-search-top">
+                    <div>
+                        <h3><i class="fa-solid fa-scale-balanced" style="color: var(--primary);"></i> اسأل عن حكم شرعي</h3>
+                        <p>اكتب سؤالك أو استفتاءك وسنعرض لك الإجابة الموثقة بأدلتها الشرعية</p>
+                    </div>
+                    <span class="fatwa-ai-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> بحث ذكي فوري</span>
+                </div>
+
+                <div class="fatwa-search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="fatwa-search-input" placeholder="مثال: ما حكم الجمع بين الصلاتين في السفر؟" />
+                    <button class="fatwa-mic-btn" id="fatwa-mic-btn" title="البحث الصوتي" onclick="startFatwaVoiceSearch()"><i class="fa-solid fa-microphone"></i></button>
+                    <button class="fatwa-search-submit-btn" onclick="searchFatwa()"><i class="fa-solid fa-magnifying-glass"></i> بحث</button>
+                </div>
+
+                <div class="fatwa-search-hint">
+                    <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> بحث شائع:
+                    <span onclick="quickFatwaSearch('الوضوء')">الوضوء</span>
+                    <span onclick="quickFatwaSearch('الزكاة')">الزكاة</span>
+                    <span onclick="quickFatwaSearch('العملات الرقمية')">العملات الرقمية</span>
+                    <span onclick="quickFatwaSearch('صلة الأرحام')">صلة الأرحام</span>
+                </div>
+            </div>
+
+            <!-- التصنيفات السريعة -->
+            <div class="fatwa-categories-wrap">
+            <div class="fatwa-categories" id="fatwa-categories" data-scroll-hint>
+                <button class="fatwa-cat-btn active" data-cat="all" onclick="switchFatwaCategory('all', event)"><i class="fa-solid fa-border-all"></i><span>الكل</span></button>
+                <button class="fatwa-cat-btn" data-cat="salah" onclick="switchFatwaCategory('salah', event)"><i class="fa-solid fa-mosque"></i><span>الصلاة</span></button>
+                <button class="fatwa-cat-btn" data-cat="tahara" onclick="switchFatwaCategory('tahara', event)"><i class="fa-solid fa-droplet"></i><span>الطهارة</span></button>
+                <button class="fatwa-cat-btn" data-cat="muamalat" onclick="switchFatwaCategory('muamalat', event)"><i class="fa-solid fa-handshake"></i><span>المعاملات</span></button>
+                <button class="fatwa-cat-btn" data-cat="siyam" onclick="switchFatwaCategory('siyam', event)"><i class="fa-solid fa-moon"></i><span>الصيام</span></button>
+                <button class="fatwa-cat-btn" data-cat="usra" onclick="switchFatwaCategory('usra', event)"><i class="fa-solid fa-people-roof"></i><span>الأسرة</span></button>
+                <button class="fatwa-cat-btn" data-cat="akhlaq" onclick="switchFatwaCategory('akhlaq', event)"><i class="fa-solid fa-heart"></i><span>الأخلاق والآداب</span></button>
+                <button class="fatwa-cat-btn" data-cat="zakah" onclick="switchFatwaCategory('zakah', event)"><i class="fa-solid fa-hand-holding-dollar"></i><span>الزكاة</span></button>
+                <button class="fatwa-cat-btn" data-cat="hajj" onclick="switchFatwaCategory('hajj', event)"><i class="fa-solid fa-kaaba"></i><span>الحج والعمرة</span></button>
+                <button class="fatwa-cat-btn" data-cat="muasira" onclick="switchFatwaCategory('muasira', event)"><i class="fa-solid fa-microchip"></i><span>فتاوى معاصرة</span><span class="tag-new">جديد</span></button>
+                <button class="fatwa-cat-btn" data-cat="digital" onclick="switchFatwaCategory('digital', event)"><i class="fa-solid fa-coins"></i><span>العملات الرقمية والتقنية</span><span class="tag-new">جديد</span></button>
+            </div>
+            <span class="scroll-hint-fade" aria-hidden="true"></span>
+            <span class="scroll-hint-arrow" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+            </div>
+
+            <!-- منطقة عرض النتائج -->
+            <div id="fatwa-results-area">
+                <div class="fatwa-grid" id="fatwa-grid"></div>
+            </div>
+
+            <!-- منطقة عرض تفاصيل فتوى محددة -->
+            <div id="fatwa-detail-area" style="display: none;"></div>
+
+            <div class="fatwa-note">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>المحتوى المعروض هنا نموذج توضيحي لتصميم القسم، وتبقى الفتوى المعتمدة هي الصادرة عن أهل العلم الموثوقين. يُنصح دائمًا بمراجعة دار إفتاء معتمدة عند وجود مسائل خلافية.</span>
+            </div>
+        </section>
+
+        <!-- الرفيق الروحي التكيفي: تتبع العبادات + الرقية الذكية ومتابعة الحالة النفسية -->
+        <section id="page-rafiq" class="page-view">
+            <div class="section-header"><div class="section-title"><i class="fa-solid fa-seedling"></i><span data-i18n="title_rafiq">الرفيق الروحي التكيفي</span></div></div>
+
+            <div class="rafiq-suggestion-card" id="rafiq-suggestion-card">
+                <i class="fa-solid fa-wand-magic-sparkles rf-icon"></i>
+                <div>
+                    <h4 id="rafiq-suggestion-title">جرعتك الروحية اليوم</h4>
+                    <p id="rafiq-suggestion-text">جارٍ تجهيز اقتراح مناسب لوقتك...</p>
+                </div>
+            </div>
+
+            <div class="rafiq-stats-row">
+                <div class="rafiq-stat-box"><div class="num" id="rafiq-stat-today">0/0</div><div class="lbl">إنجاز اليوم</div></div>
+                <div class="rafiq-stat-box"><div class="num" id="rafiq-stat-streak">0</div><div class="lbl">أيام متتالية</div></div>
+                <div class="rafiq-stat-box"><div class="num" id="rafiq-stat-total">0</div><div class="lbl">إجمالي العبادات المسجّلة</div></div>
+            </div>
+
+            <div class="rafiq-section-sub"><i class="fa-solid fa-list-check"></i> عبادات وعادات اليوم</div>
+            <div class="rafiq-habits-grid" id="rafiq-habits-grid"></div>
+
+            <div class="rafiq-section-sub"><i class="fa-solid fa-shield-heart"></i> الرقية الذكية: كيف تشعر الآن؟</div>
+            <div class="mood-grid" id="mood-grid"></div>
+            <div class="mood-result-area" id="mood-result-area"></div>
+        </section>
+
+        <!-- مرشد: المساعد الذكي الشرعي -->
+        <section id="page-murshid" class="page-view">
+            <div class="section-header"><div class="section-title"><i class="fa-solid fa-comment-dots"></i><span data-i18n="title_murshid">مرشد - مساعدك الإسلامي الذكي</span></div></div>
+
+            <div class="murshid-chat-wrap" id="murshid-chat-wrap">
+                <div class="murshid-msg">
+                    <div class="murshid-avatar"><i class="fa-solid fa-star-and-crescent"></i></div>
+                    <div class="murshid-bubble">السلام عليكم، أنا "مرشد"، اسألني عن أي حكم شرعي أو اطلب مني خطة عبادية مثل ختم القرآن، وسأجيبك اعتمادًا على القرآن والسنة وكتب الفقه المعتمدة.</div>
+                </div>
+            </div>
+
+            <div class="murshid-input-row">
+                <input type="text" id="murshid-input" placeholder="اكتب سؤالك هنا... مثال: ما حكم صلاة المسافر في الطائرة؟" />
+                <button class="btn-primary" onclick="sendMurshidMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+            <div class="murshid-quick-row">
+                <span onclick="quickMurshidMessage('ما حكم صلاة المسافر في الطائرة الحديثة؟')">حكم صلاة المسافر بالطائرة</span>
+                <span onclick="quickMurshidMessage('اقترح علي خطة لختم القرآن في 10 أيام مع تفسير مبسط')">خطة ختم القرآن في 10 أيام</span>
+                <span onclick="quickMurshidMessage('ما هي أفضل الأذكار للثبات والطمأنينة؟')">أذكار الثبات والطمأنينة</span>
+            </div>
+            <div class="murshid-note"><i class="fa-solid fa-circle-info"></i> إجابات "مرشد" اجتهاد تقريبي معتمد على مصادر موثوقة، ولا تغني عن سؤال أهل العلم في المسائل الدقيقة والفردية. يعتمد هذا القسم على خادم خلفي محلي (fatwa_api_server.py) يحتفظ بمفتاح Anthropic API بأمان على الخادم بدل المتصفح.</div>
+        </section>
+
+        <!-- 7. الإذاعات[cite: 4] -->
+        <section id="page-radio" class="page-view">
+            <div class="section-header"><div class="section-title"><i class="fa-solid fa-tower-broadcast"></i><span data-i18n="title_radio">إذاعات القرآن الكريم المباشرة</span></div></div>
+            <div class="radio-grid" id="radio-grid"></div>
+        </section>
+
+        <!-- الصوتيات: مواعظ ومقاطع صوتية قصيرة -->
+        <section id="page-sounds" class="page-view">
+            <div class="section-header"><div class="section-title"><i class="fa-solid fa-microphone-lines"></i><span data-i18n="title_sounds">مواعظ</span></div></div>
+
+            <!-- بطاقة البحث عن موعظة (نصيًا أو صوتيًا) -->
+            <div class="fatwa-search-card glass-panel" style="margin-bottom: 20px;">
+                <div class="fatwa-search-top">
+                    <div>
+                        <h3><i class="fa-solid fa-magnifying-glass" style="color: var(--primary);"></i> البحث عن موعظة</h3>
+                        <p>اكتب اسم الموعظة أو موضوعها، أو اضغط على الميكروفون وابحث بصوتك</p>
+                    </div>
+                    <span class="fatwa-ai-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> بحث صوتي وذكي</span>
+                </div>
+
+                <div class="fatwa-search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="sounds-search-input" placeholder="مثال: التوبة، نصيحة، الجنة..." />
+                    <button class="fatwa-mic-btn" id="sounds-mic-btn" title="البحث الصوتي" onclick="startSoundsVoiceSearch()"><i class="fa-solid fa-microphone"></i></button>
+                    <button class="fatwa-search-submit-btn" onclick="searchSounds()"><i class="fa-solid fa-magnifying-glass"></i> بحث</button>
+                </div>
+            </div>
+
+            <div class="sounds-grid" id="sounds-grid"></div>
+        </section>
+
+        <!-- التنبيهات: أبرز مزايا وخدمات المنصة -->
+        <section id="page-alerts" class="page-view">
+            <div class="section-header"><div class="section-title"><i class="fa-solid fa-bell"></i><span data-i18n="title_alerts">التنبيهات</span></div></div>
+
+            <div class="glass-panel" style="padding: 26px 30px; display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
+                <div>
+                    <h3 style="margin-bottom:6px; color:var(--primary); font-size:1.05rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-bell-concierge"></i> إشعارات الإضافات والتحديثات</h3>
+                    <p style="line-height:2; color:var(--text-main); margin-bottom:14px;" id="push-status-desc">فعّل الإشعارات لتصلك رسالة فورية على جهازك عند إضافة محتوى جديد أو تحديث للمنصة، حتى لو كان التطبيق مغلقًا.</p>
+                </div>
+                <button class="btn-primary" id="push-subscribe-btn" onclick="subscribeToPushNotifications()"><i class="fa-solid fa-bell"></i> <span id="push-subscribe-btn-text">تفعيل إشعارات التحديثات</span></button>
+            </div>
+
+            <div class="glass-panel" style="padding: 30px; display:flex; flex-direction:column; gap:0;">
+
+                <div style="display:flex; gap:18px; align-items:flex-start; padding:18px 0; border-bottom:1px solid var(--border-color);">
+                    <div style="flex-shrink:0; width:46px; height:46px; border-radius:14px; background:var(--glow); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">1</div>
+                    <div>
+                        <h3 style="margin-bottom:8px; color:var(--primary); font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-bell"></i> فعّل الإشعارات لتحصل على أحدث التنبيهات</h3>
+                        <p style="line-height:2; color:var(--text-main);">فعّل إشعارات المنصة من خلال زر "تفعيل إشعارات التحديثات" أعلاه، لتصلك على الفور رسالة بكل محتوى جديد أو تحديث يُضاف إلى المنصة، حتى لو كان التطبيق مغلقًا في تلك اللحظة.</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:18px; align-items:flex-start; padding:18px 0; border-bottom:1px solid var(--border-color);">
+                    <div style="flex-shrink:0; width:46px; height:46px; border-radius:14px; background:var(--glow); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">2</div>
+                    <div>
+                        <h3 style="margin-bottom:8px; color:var(--primary); font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-wifi"></i> التصفح دون اتصال بالإنترنت</h3>
+                        <p style="line-height:2; color:var(--text-main);">هذه المنصة تدعم خاصية عدم الاتصال بالإنترنت في أغلب خدماتها، بحيث يمكنك قراءة القرآن الكريم والاستماع لما قمت بحفظه مسبقًا من التلاوات والمواعظ، والاطّلاع على الأذكار والأدعية، حتى في حال انقطاع الشبكة أو ضعفها.</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:18px; align-items:flex-start; padding:18px 0; border-bottom:1px solid var(--border-color);">
+                    <div style="flex-shrink:0; width:46px; height:46px; border-radius:14px; background:var(--glow); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">3</div>
+                    <div>
+                        <h3 style="margin-bottom:8px; color:var(--primary); font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-mobile-screen-button"></i> تثبيت سريع وحجم صغير جدًا</h3>
+                        <p style="line-height:2; color:var(--text-main);">يمكنك تثبيت المنصة على جهازك (جوال أو حاسوب) بضغطة واحدة، فهي عبارة عن تطبيق ويب تقدّمي (PWA) خفيف الحجم جدًا، لا يستهلك مساحة تُذكر من ذاكرة جهازك، ويمنحك تجربة استخدام سلسة أقرب إلى التطبيقات المثبّتة من متاجر التطبيقات.</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:18px; align-items:flex-start; padding:18px 0; border-bottom:1px solid var(--border-color);">
+                    <div style="flex-shrink:0; width:46px; height:46px; border-radius:14px; background:var(--glow); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">4</div>
+                    <div>
+                        <h3 style="margin-bottom:8px; color:var(--primary); font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-book-quran"></i> القرآن الكريم بأشهر الروايات</h3>
+                        <p style="line-height:2; color:var(--text-main);">توفّر المنصة تلاوة القرآن الكريم كاملًا بأصوات نخبة من كبار القرّاء، وبأشهر الروايات المعتمدة كرواية حفص عن عاصم، وورش عن نافع، وقالون عن نافع، مع إمكانية اختيار القارئ والرواية التي تناسبك بكل سهولة.</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:18px; align-items:flex-start; padding:18px 0; border-bottom:1px solid var(--border-color);">
+                    <div style="flex-shrink:0; width:46px; height:46px; border-radius:14px; background:var(--glow); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">5</div>
+                    <div>
+                        <h3 style="margin-bottom:8px; color:var(--primary); font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-book-open"></i> تفسير ميسّر وموسوعة حديثية</h3>
+                        <p style="line-height:2; color:var(--text-main);">تجد في المنصة تفسيرًا ميسّرًا لآيات القرآن الكريم بجانب كل آية، إلى جانب موسوعة جامعة لأحاديث النبي ﷺ موثّقة من مصادرها، لتكون مرجعًا سهلًا وموثوقًا في متناول يدك.</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:18px; align-items:flex-start; padding:18px 0; border-bottom:1px solid var(--border-color);">
+                    <div style="flex-shrink:0; width:46px; height:46px; border-radius:14px; background:var(--glow); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">6</div>
+                    <div>
+                        <h3 style="margin-bottom:8px; color:var(--primary); font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-hands-praying"></i> أذكار وأدعية تفاعلية</h3>
+                        <p style="line-height:2; color:var(--text-main);">تتضمن المنصة أذكار الصباح والمساء وسائر الأدعية المأثورة بصورة تفاعلية سهلة المتابعة، تساعدك على المداومة عليها في كل وقت.</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:18px; align-items:flex-start; padding:18px 0; border-bottom:1px solid var(--border-color);">
+                    <div style="flex-shrink:0; width:46px; height:46px; border-radius:14px; background:var(--glow); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">7</div>
+                    <div>
+                        <h3 style="margin-bottom:8px; color:var(--primary); font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-scale-balanced"></i> فتاوى شرعية موثوقة و"مرشد" الذكي</h3>
+                        <p style="line-height:2; color:var(--text-main);">توفر المنصة قسمًا للفتاوى الشرعية الموثوقة، إضافة إلى ميزة "مرشد" التي تعتمد على تقنيات الذكاء الاصطناعي للإجابة عن استفساراتك الشرعية، مستندةً دائمًا إلى القرآن الكريم والسنة النبوية.</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:18px; align-items:flex-start; padding:18px 0; border-bottom:1px solid var(--border-color);">
+                    <div style="flex-shrink:0; width:46px; height:46px; border-radius:14px; background:var(--glow); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">8</div>
+                    <div>
+                        <h3 style="margin-bottom:8px; color:var(--primary); font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-tower-broadcast"></i> إذاعات قرآنية مباشرة</h3>
+                        <p style="line-height:2; color:var(--text-main);">استمع إلى إذاعات القرآن الكريم المباشرة من عدة قنوات في أي وقت تشاء، لتبقى مرافقًا للقرآن الكريم في يومك بشكل مستمر.</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:18px; align-items:flex-start; padding:18px 0; border-bottom:1px solid var(--border-color);">
+                    <div style="flex-shrink:0; width:46px; height:46px; border-radius:14px; background:var(--glow); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">9</div>
+                    <div>
+                        <h3 style="margin-bottom:8px; color:var(--primary); font-size:1.1rem; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-microphone-lines"></i> مواعظ ومقاطع صوتية مختارة</h3>
+                        <p style="line-height:2; color:var(--text-main);">تضم المنصة مكتبة من المواعظ والمقاطع الصوتية القصيرة لعدد من المشايخ، مع خاصية البحث النصي والصوتي عن الموعظة التي تريدها، وإمكانية حفظها للاستماع إليها لاحقًا دون إنترنت.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- من نحن -->
+        <section id="page-about" class="page-view">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-circle-info"></i><span data-i18n="title_about">من نحن</span></div>
+            </div>
+
+            <div class="glass-panel" style="padding: 30px; display:flex; flex-direction:column; gap:22px;">
+                <div>
+                    <h3 style="margin-bottom:12px; color:var(--primary); font-size:1.25rem;">عن المنصة</h3>
+                    <p style="line-height:2; color:var(--text-main);">
+                        <strong>منصة القرآن والسنة</strong> منصة إسلامية رقمية شاملة، تهدف إلى تيسير وصول المسلم إلى القرآن الكريم بتلاواته المتعددة، والسنة النبوية الشريفة، والفتاوى الشرعية الموثوقة، إلى جانب الأذكار والأدعية اليومية ومواقيت الصلاة، ضمن تجربة عصرية سهلة الاستخدام تجمع بين الأصالة والتقنية الحديثة.
+                    </p>
+                    <p style="line-height:2; color:var(--text-main); margin-top:12px;">
+                        نسعى من خلال هذه المنصة إلى تقديم محتوى إسلامي موثوق ومبسّط يخدم المسلم في يومه، ويعينه على المحافظة على عباداته وأذكاره، مستفيدين من أحدث تقنيات الذكاء الاصطناعي لتقديم إجابات شرعية دقيقة، مرتكزة دومًا على مصادرها الأصيلة من القرآن الكريم والسنة النبوية.
+                    </p>
+                </div>
+
+                <div style="border-top:1px solid var(--border-color); padding-top:22px;">
+                    <h3 style="margin-bottom:10px; color:var(--primary); font-size:1.25rem;">المطوّر</h3>
+                    <p style="font-weight:700; font-size:1.05rem;">عبدالرحمن سعيد باحشوان</p>
+                </div>
+
+                <div style="border-top:1px solid var(--border-color); padding-top:22px;">
+                    <h3 style="margin-bottom:16px; color:var(--primary); font-size:1.25rem;">تواصل معنا</h3>
+                    <div style="display:flex; flex-direction:column; gap:14px;">
+                        <a href="mailto:sddwe064@gmail.com" style="display:flex; align-items:center; gap:12px; color:var(--text-main); width:fit-content;">
+                            <i class="fa-solid fa-envelope" style="color:var(--primary); width:20px; text-align:center; font-size:1.1rem;"></i>
+                            <span dir="ltr">sddwe064@gmail.com</span>
+                        </a>
+                        <a href="tel:+967773664939" style="display:flex; align-items:center; gap:12px; color:var(--text-main); width:fit-content;">
+                            <i class="fa-solid fa-phone" style="color:var(--primary); width:20px; text-align:center; font-size:1.1rem;"></i>
+                            <span dir="ltr">967 773 664 939+</span>
+                        </a>
+                        <a href="https://wa.me/967773664939" target="_blank" rel="noopener noreferrer"
+                           style="display:inline-flex; align-items:center; gap:10px; width:fit-content; margin-top:6px; padding:12px 24px; border-radius:14px; background:#25D366; color:#ffffff; font-weight:700; box-shadow:0 8px 20px rgba(37,211,102,0.35);">
+                            <i class="fa-brands fa-whatsapp" style="font-size:1.3rem;"></i>
+                            <span>تواصل عبر واتساب</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div style="border-top:1px solid var(--border-color); padding-top:22px;">
+                    <h3 style="margin-bottom:16px; color:var(--primary); font-size:1.25rem;">قناة المنصة على واتساب</h3>
+                    <a href="https://whatsapp.com/channel/0029Vb8nveK1dAvz6IdssN3c" target="_blank" rel="noopener noreferrer"
+                       style="display:inline-flex; align-items:center; gap:10px; width:fit-content; padding:12px 24px; border-radius:14px; background:#25D366; color:#ffffff; font-weight:700; box-shadow:0 8px 20px rgba(37,211,102,0.35);">
+                        <i class="fa-solid fa-bullhorn" style="font-size:1.2rem;"></i>
+                        <span>انضم إلى قناتنا على واتساب</span>
+                    </a>
+                </div>
+
+                <div style="border-top:1px solid var(--border-color); padding-top:16px; text-align:center; color:var(--text-muted); font-size:0.9rem;">
+                    © <span id="about-copyright-year"></span> منصة القرآن والسنة — جميع الحقوق محفوظة.
+                </div>
+            </div>
+        </section>
+
+        <!-- حسابي: تعرض للمستخدم المسجَّل ملخص حسابه، آخر ما قرأه/استمع إليه، مفضلته وملاحظاته.
+             لغير المسجَّل تعرض دعوة لتسجيل الدخول أو إنشاء حساب. -->
+        <section id="page-account" class="page-view">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-user"></i><span>حسابي</span></div>
+            </div>
+
+            <div id="account-page-logged-out" class="glass-panel" style="padding:40px 24px; text-align:center; display:none;">
+                <i class="fa-solid fa-user-lock" style="font-size:2.4rem; color:var(--primary); margin-bottom:16px;"></i>
+                <h3 style="margin-bottom:10px; font-size:1.15rem;">سجّل الدخول للاستفادة من حسابك</h3>
+                <p style="color:var(--text-muted); margin-bottom:20px; line-height:1.9;">أنشئ حسابًا مجانيًا لحفظ آخر سورة استمعت إليها، آخر حديث قرأته، والمفضلة والملاحظات، ومزامنتها بين أجهزتك.</p>
+                <button class="btn-primary" onclick="openAccountModal()"><i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول / إنشاء حساب</button>
+            </div>
+
+            <div id="account-page-logged-in" style="display:none;">
+                <div class="glass-panel" style="padding:22px 24px; margin-bottom:26px;">
+                    <div class="account-profile-card">
+                        <div class="account-avatar"><i class="fa-solid fa-user"></i></div>
+                        <div>
+                            <div class="account-name" id="account-page-name">—</div>
+                            <div class="account-email" id="account-page-email">—</div>
+                        </div>
+                        <button class="btn-action" style="margin-inline-start:auto;" onclick="accountLogout()"><i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج</button>
+                    </div>
+                </div>
+
+                <div class="rafiq-section-sub"><i class="fa-solid fa-clock-rotate-left"></i> آخر ما تابعته</div>
+                <div class="account-last-read-grid">
+                    <div class="account-last-read-card" id="account-last-surah-card" onclick="resumeLastSurah()">
+                        <div class="lbl"><i class="fa-solid fa-book-quran"></i> آخر سورة استمعت إليها</div>
+                        <div class="val" id="account-last-surah-val">لم تستمع إلى شيء بعد</div>
+                    </div>
+                    <div class="account-last-read-card" id="account-last-hadith-card" onclick="resumeLastHadith()">
+                        <div class="lbl"><i class="fa-solid fa-scroll"></i> آخر حديث قرأته</div>
+                        <div class="val" id="account-last-hadith-val">لم تقرأ حديثًا بعد</div>
+                    </div>
+                </div>
+
+                <div class="rafiq-section-sub"><i class="fa-solid fa-star"></i> المفضلة</div>
+                <div id="account-favorites-list"><div class="account-empty">لا توجد عناصر في المفضلة بعد. اضغط أيقونة النجمة عند أي سورة أو حديث لإضافته هنا.</div></div>
+
+                <div class="rafiq-section-sub"><i class="fa-solid fa-note-sticky"></i> ملاحظاتي</div>
+                <div class="account-form" style="margin-bottom:16px; flex-direction:row;">
+                    <input type="text" id="account-note-input" placeholder="أضف ملاحظة جديدة..." maxlength="500">
+                    <button class="btn-primary" onclick="accountAddNoteFromPage()"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div id="account-notes-list"><div class="account-empty">لا توجد ملاحظات بعد.</div></div>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="toast-notification" id="toast">تم النسخ بنجاح</div>
+
+    <!-- شريط تقدّم التنزيل مع زر إلغاء فوري (سورة أو موعظة) -->
+    <div class="download-progress-toast" id="download-progress-toast">
+        <span class="dl-progress-text" id="download-progress-text"></span>
+        <button type="button" class="dl-cancel-btn" id="download-cancel-btn" onclick="cancelActiveDownload()">
+            <i class="fa-solid fa-xmark"></i> إلغاء
+        </button>
+    </div>
+
+    <!-- نافذة منبثقة عامة: عداد المناسبات + بطاقة التهنئة -->
+    <div class="app-modal-overlay" id="app-modal-overlay" onclick="closeAppModalOnOverlay(event)">
+        <div class="app-modal-box glass-panel" id="app-modal-box" onclick="event.stopPropagation()"></div>
+    </div>
+
+    <!-- بانر تثبيت التطبيق PWA (يظهر تلقائيًا في متصفحات Chromium: أندرويد وويندوز...) -->
+    <div class="pwa-install-banner" id="pwa-install-banner">
+        <div class="pwa-banner-text"><i class="fa-solid fa-mobile-screen-button"></i> ثبّت التطبيق على جهازك لتصفح أسرع حتى بدون إنترنت</div>
+        <div class="pwa-banner-actions">
+            <button class="btn-primary" onclick="installPwaApp()">تثبيت</button>
+            <button class="pwa-banner-dismiss" onclick="dismissPwaBanner()" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- بانر إرشادي لتثبيت التطبيق على آيفون/آيباد (Safari لا يطلق إشعار
+         التثبيت التلقائي إطلاقًا، فنعرض للمستخدم خطوات الإضافة اليدوية) -->
+    <div class="pwa-install-banner" id="ios-install-banner">
+        <div class="pwa-banner-text"><i class="fa-solid fa-arrow-up-from-bracket"></i> لتثبيت التطبيق على آيفون/آيباد: افتح الموقع عبر Safari، ثم اضغط زر المشاركة، واختر "إضافة إلى الشاشة الرئيسية"</div>
+        <div class="pwa-banner-actions">
+            <button class="pwa-banner-dismiss" onclick="dismissIosBanner()" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <script src="js/core.js"></script>
+    <script src="js/i18n-ui.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/prayer.js"></script>
+    <script src="js/quran-player.js"></script>
+    <script src="js/sounds-azkar.js"></script>
+    <script src="js/fatwa.js"></script>
+    <script src="js/home-services.js"></script>
+    <script src="js/rafiq.js"></script>
+    <script src="js/murshid.js"></script>
+    <script src="js/account-misc.js"></script>
+</body>
+</html>

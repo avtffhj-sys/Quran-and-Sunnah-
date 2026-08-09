@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#065f46"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- خلفية متدرجة مربعة الزوايا مستديرة (شكل أيقونة التطبيقات) -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow)"/>
+
+  <!-- هلال ونجمة أعلى الأيقونة -->
+  <g fill="url(#gold)">
+    <path d="M283 58c-25.5 0-46.2 20.7-46.2 46.2 0 25.5 20.7 46.2 46.2 46.2 3.6 0 7-.4 10.4-1.2-16.6-8.4-28-25.6-28-45s11.4-36.6 28-45c-3.4-.8-6.8-1.2-10.4-1.2z"/>
+    <path d="M332 96l4.6 10.4 10.4 4.6-10.4 4.6-4.6 10.4-4.6-10.4-10.4-4.6 10.4-4.6z"/>
+  </g>
+
+  <!-- مئذنتان جانبيتان -->
+  <g fill="#ffffff" opacity="0.92">
+    <rect x="140" y="205" width="18" height="120" rx="4"/>
+    <circle cx="149" cy="196" r="12"/>
+    <rect x="146" y="168" width="6" height="26"/>
+    <circle cx="149" cy="164" r="4.5"/>
+
+    <rect x="354" y="205" width="18" height="120" rx="4"/>
+    <circle cx="363" cy="196" r="12"/>
+    <rect x="360" y="168" width="6" height="26"/>
+    <circle cx="363" cy="164" r="4.5"/>
+  </g>
+
+  <!-- قبة المسجد -->
+  <g fill="#ffffff">
+    <rect x="245" y="122" width="6" height="22"/>
+    <circle cx="248" cy="116" r="6.5"/>
+    <path d="M248 132c-34 0-61.5 27-61.5 60 0 15 8.5 26.5 22.5 31.5h78c14-5 22.5-16.5 22.5-31.5 0-33-27.5-60-61.5-60z"/>
+    <rect x="204" y="223" width="88" height="18" rx="3"/>
+  </g>
+
+  <!-- المصحف المفتوح -->
+  <g>
+    <path d="M248 258 L128 282 L128 372 L248 350 Z" fill="#ffffff"/>
+    <path d="M248 258 L368 282 L368 372 L248 350 Z" fill="#f0fdf4"/>
+    <rect x="245" y="252" width="6" height="102" fill="#065f46"/>
+
+    <g stroke="#10b981" stroke-width="4" stroke-linecap="round" opacity="0.55">
+      <line x1="150" y1="296" x2="222" y2="284"/>
+      <line x1="150" y1="314" x2="222" y2="302"/>
+      <line x1="150" y1="332" x2="222" y2="320"/>
+
+      <line x1="274" y1="284" x2="346" y2="296"/>
+      <line x1="274" y1="302" x2="346" y2="314"/>
+      <line x1="274" y1="320" x2="346" y2="332"/>
+    </g>
+  </g>
+</svg>
