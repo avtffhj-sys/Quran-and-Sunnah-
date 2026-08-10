@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # مهم: استبدل الرابط أدناه بنطاقك الحقيقي بعد رفع الموقع
-Sitemap: https://REPLACE-WITH-YOUR-DOMAIN.com/sitemap.xml
+Sitemap: https://quran-and-sunnah.netlify.app/sitemap.xml
