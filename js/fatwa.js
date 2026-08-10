@@ -1385,23 +1385,37 @@ const AI_FATWA_SYSTEM_PROMPT = `أنت مساعد يقدم عرضًا تعليم
 }
 التزم بالاعتدال والموضوعية، وانسب المسائل الخلافية للخلاف الفقهي الحقيقي دون تحيز، ولا تفتِ في مسائل شخصية دقيقة تحتاج تفصيل حالة فردية بل وجّه لمراجعة عالم موثوق.`;
 
-async function requestAIFatwa(query) {
+// مهلة الطلب الواحد (بالمللي ثانية). كبيرة نسبيًا لأن استضافة Render المجانية
+// قد تحتاج 30-60 ثانية "لإيقاظ" الخادم إذا كان نائمًا (cold start).
+const FATWA_API_TIMEOUT_MS = 55000;
+
+async function fetchWithTimeout(url, options, timeoutMs) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+        return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+        clearTimeout(timer);
+    }
+}
+
+async function requestAIFatwa(query, _isRetry) {
     document.getElementById('fatwa-results-area').style.display = 'none';
     const detailArea = document.getElementById('fatwa-detail-area');
     detailArea.style.display = 'block';
     detailArea.innerHTML = `
         <div class="fatwa-detail-card glass-panel" style="padding: 60px 30px; text-align:center;">
             <i class="fa-solid fa-wand-magic-sparkles fa-spin" style="font-size:2.5rem; color: var(--primary); margin-bottom:18px;"></i>
-            <p style="color: var(--text-muted); font-weight:700;">جارٍ البحث عن إجابة لسؤالك...</p>
+            <p style="color: var(--text-muted); font-weight:700;">${_isRetry ? 'الخادم كان نائمًا وجارٍ إيقاظه... قد يستغرق هذا حتى دقيقة في المحاولة الأولى' : 'جارٍ البحث عن إجابة لسؤالك...'}</p>
         </div>`;
     detailArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     try {
-        const response = await fetch(FATWA_API_ENDPOINT, {
+        const response = await fetchWithTimeout(FATWA_API_ENDPOINT, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ question: query })
-        });
+        }, FATWA_API_TIMEOUT_MS);
         const parsed = await response.json();
         if (!response.ok || parsed.error) throw new Error(parsed.error || 'request-failed');
 
@@ -1412,12 +1426,24 @@ async function requestAIFatwa(query) {
         renderAIFatwaDetail(parsed, query);
     } catch (err) {
         console.error('fatwa-api-error:', err);
+        const isNetworkOrTimeout = err && (err.name === 'AbortError' ||
+            err.message === 'Failed to fetch' ||
+            err.message === 'NetworkError when attempting to fetch resource.' ||
+            err.message === 'Load failed');
+
+        // محاولة تلقائية واحدة: أغلب حالات الفشل مصدرها "استيقاظ" خادم Render
+        // المجاني من النوم، فمحاولة ثانية بعد بضع ثوانٍ غالبًا تنجح دون إزعاج المستخدم.
+        if (isNetworkOrTimeout && !_isRetry && !BACKEND_BASE_URL.includes('localhost')) {
+            await new Promise(r => setTimeout(r, 3000));
+            return requestAIFatwa(query, true);
+        }
+
         const code = err && err.message;
         let displayMsg = 'تعذّر الحصول على إجابة الآن، تحقق من اتصالك وحاول مرة أخرى.';
-        if (code === 'Failed to fetch' || code === 'NetworkError when attempting to fetch resource.' || code === 'Load failed') {
+        if (isNetworkOrTimeout) {
             displayMsg = BACKEND_BASE_URL.includes('localhost')
                 ? 'تعذّر الوصول إلى خدمة الفتاوى المحلية على ' + FATWA_API_ENDPOINT + '. تأكد أن ملف fatwa_api_server.py يعمل فعليًا (شغّله من PyCharm أو عبر الأمر: python fatwa_api_server.py) قبل استخدام صفحة الفتاوى.'
-                : 'تعذّر الوصول إلى خدمة الفتاوى حاليًا (' + FATWA_API_ENDPOINT + '). قد يكون الخادم نائمًا مؤقتًا (شائع في الاستضافة المجانية) أو غير متصل، حاول مرة أخرى بعد لحظات.';
+                : 'الخادم لا يستجيب حتى بعد محاولة إيقاظه. قد يكون نائمًا لفترة أطول من المعتاد أو متوقفًا فعليًا على Render، تحقق من لوحة Render وحاول مرة أخرى بعد قليل.';
         } else if (code === 'missing_api_key') {
             displayMsg = 'الخادم يعمل لكن لم يتم ضبط مفتاح OPENROUTER_API_KEY فيه. راجع ملف .env.example لمعرفة كيفية ضبطه.';
         } else if (code === 'upstream_error') {
