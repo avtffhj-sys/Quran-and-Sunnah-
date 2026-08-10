@@ -697,6 +697,11 @@
                     <button class="fatwa-mic-btn" id="sounds-mic-btn" title="البحث الصوتي" onclick="startSoundsVoiceSearch()"><i class="fa-solid fa-microphone"></i></button>
                     <button class="fatwa-search-submit-btn" onclick="searchSounds()"><i class="fa-solid fa-magnifying-glass"></i> بحث</button>
                 </div>
+
+                <!-- تصفية المواعظ حسب الشيخ -->
+                <select id="sounds-sheikh-filter" class="select-custom" style="margin-top: 12px; width: 100%;" onchange="searchSounds()" aria-label="تصفية المواعظ حسب الشيخ">
+                    <option value="">كل الشيوخ</option>
+                </select>
             </div>
 
             <div class="sounds-grid" id="sounds-grid"></div>
