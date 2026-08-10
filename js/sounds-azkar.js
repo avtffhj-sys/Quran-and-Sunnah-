@@ -54,8 +54,6 @@ const soundsData = [
     { title: "من آداب يوم الجمعة", sheikh: "الشيخ محمد العريفي", url: "https://archive.org/download/muslim_up_by_ayoub-islam/0179.mp3" },
     { title: "أسباب الهم والغم", sheikh: "الشيخ عائض القرني", url: "https://archive.org/download/muslim_up_by_ayoub-islam/0197.mp3" },
     { title: "طعام أهل الجنة", sheikh: "الشيخ صالح المغامسي", url: "https://archive.org/download/muslim_up_by_ayoub-islam/0213.mp3" },
-    { title: "كيف تكون من الذين يخشون ربهم", sheikh: "الشيخ وسيم يوسف", url: "https://archive.org/download/muslim_up_by_ayoub-islam/0235.mp3" },
-    { title: "أين السعادة", sheikh: "الشيخ وسيم يوسف", url: "https://archive.org/download/muslim_up_by_ayoub-islam/0249.mp3" },
     { title: "ما الذي يجري من حولنا", sheikh: "الشيخ توفيق الصايغ", url: "https://archive.org/download/muslim_up_by_ayoub-islam/0258.mp3" },
     { title: "أعظم كنوز بر الوالدين", sheikh: "الشيخ محمد الشنقيطي", url: "https://archive.org/download/muslim_up_by_ayoub-islam/0280.mp3" },
     { title: "وقفات مع النفس قبل يوم القيامة", sheikh: "الشيخ خالد الراشد", url: "https://archive.org/download/muslim_up_by_ayoub-islam/0324.mp3" },
@@ -443,6 +441,11 @@ const soundsData = [
     { title: "تاج الوقار", sheikh: "الشيخ نبيل العوضي", url: "https://archive.org/download/Nabil-3awadi_Mawsoa-mp3/0227-.mp3" },
     { title: "تأملات في سورة يوسف", sheikh: "الشيخ نبيل العوضي", url: "https://archive.org/download/Nabil-3awadi_Mawsoa-mp3/0228-.mp3" },
     { title: "ثمرة الفضيلة", sheikh: "الشيخ نبيل العوضي", url: "https://archive.org/download/Nabil-3awadi_Mawsoa-mp3/0240-.mp3" },
+    { title: "أفلا يتدبرون القرآن؟", sheikh: "الشيخ نبيل العوضي", url: "https://archive.org/download/Nabil-3awadi_Mawsoa-mp3/0488-.mp3" },
+    { title: "أتدرون من المفلس؟", sheikh: "الشيخ نبيل العوضي", url: "https://archive.org/download/Nabil-3awadi_Mawsoa-mp3/0489-.mp3" },
+    { title: "فكر اليوم في لسانك وحاسب نفسك", sheikh: "الشيخ نبيل العوضي", url: "https://archive.org/download/Nabil-3awadi_Mawsoa-mp3/0493-.mp3" },
+    { title: "عزة المسلم", sheikh: "الشيخ نبيل العوضي", url: "https://archive.org/download/Nabil-3awadi_Mawsoa-mp3/0364-.mp3" },
+    { title: "مرض العصر: الهم", sheikh: "الشيخ نبيل العوضي", url: "https://archive.org/download/Nabil-3awadi_Mawsoa-mp3/0475-.mp3" },
 ];
 
 // تسخين مبكر للاتصال بخادم الصوتيات (archive.org) عند فتح قسم "المواعظ":
@@ -539,20 +542,49 @@ let soundsLoadStarted = false;
 function ensureSoundsLoaded() {
     if (soundsLoadStarted) return;
     soundsLoadStarted = true;
+    buildSheikhFilter();
     loadSounds();
 }
 
-// البحث عن موعظة بالعنوان أو الشيخ (نصيًا أو صوتيًا) داخل قسم المواعظ
+// تعبئة قائمة "تصفية حسب الشيخ" (عنصرها موجود في index.html) بأسماء
+// الشيوخ الفريدة المستخرجة من soundsData، مرة واحدة فقط.
+let sheikhFilterBuilt = false;
+function buildSheikhFilter() {
+    if (sheikhFilterBuilt) return;
+    const select = document.getElementById('sounds-sheikh-filter');
+    if (!select) return;
+
+    const sheikhs = [...new Set(soundsData.map(s => s.sheikh))]
+        .sort((a, b) => a.localeCompare(b, 'ar'));
+
+    select.innerHTML = `<option value="">كل الشيوخ</option>` +
+        sheikhs.map(sh => `<option value="${escapeHtml(sh)}">${escapeHtml(sh)}</option>`).join('');
+
+    sheikhFilterBuilt = true;
+}
+
+// البحث عن موعظة بالعنوان أو الشيخ (نصيًا أو صوتيًا)، مع إمكانية حصر
+// النتائج بشيخ محدد عبر القائمة المنسدلة، داخل قسم المواعظ
 function searchSounds() {
     const input = document.getElementById('sounds-search-input');
     const query = sanitizeTextInput(input ? input.value : '', 200).trim();
-    if (!query) { renderSoundsGrid(soundsData); return; }
 
-    const results = soundsData.filter(s =>
-        s.title.includes(query) || s.sheikh.includes(query)
-    );
+    const sheikhSelect = document.getElementById('sounds-sheikh-filter');
+    const selectedSheikh = sheikhSelect ? sheikhSelect.value : '';
+
+    let results = soundsData;
+    if (selectedSheikh) {
+        results = results.filter(s => s.sheikh === selectedSheikh);
+    }
+    if (query) {
+        results = results.filter(s => s.title.includes(query) || s.sheikh.includes(query));
+    }
+
     renderSoundsGrid(results);
-    if (!results.length) showFatwaToast(`لا توجد موعظة مطابقة لـ "${query}"`);
+
+    if (!results.length && (query || selectedSheikh)) {
+        showFatwaToast(`لا توجد موعظة مطابقة لـ "${query || selectedSheikh}"`);
+    }
 }
 
 function startSoundsVoiceSearch() {
