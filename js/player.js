@@ -154,6 +154,14 @@ function initMediaSession() {
         audio.pause();
         audio.currentTime = 0;
         playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+
+        // إغلاق إشعار الوسائط في نظام التشغيل بالكامل (وليس فقط إيقاف الصوت)
+        // عبر مسح البيانات الوصفية وضبط حالة التشغيل على "none"، حتى تختفي
+        // إشعار التحكم من شاشة القفل/شريط الإشعارات فور الضغط على زر الإغلاق.
+        navigator.mediaSession.playbackState = 'none';
+        navigator.mediaSession.metadata = null;
+
+        hideGlobalPlayer();
     });
 
     navigator.mediaSession.setActionHandler('seekbackward', (details) => {
