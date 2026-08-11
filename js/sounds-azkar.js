@@ -1531,7 +1531,7 @@ const azkarData = {
 
 /* ===== تكبير وتصغير خط نصوص الأذكار ===== */
 const ZIKR_FONT_MIN = 0.7;
-const ZIKR_FONT_MAX = 1.8;
+const ZIKR_FONT_MAX = 3;
 const ZIKR_FONT_STEP = 0.1;
 
 function applyZikrFontScale(scale) {
