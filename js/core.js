@@ -807,7 +807,7 @@ function __clearPageSwitchTimers() {
     __pageSwitchTimers = [];
 }
 
-function switchPage(pageId, event) {
+function switchPage(pageId, event, fromPopState) {
     if (event) event.preventDefault();
 
     // إلغاء أي عمل مؤجَّل من عملية تبديل صفحة سابقة لم يكتمل بعد
@@ -862,6 +862,40 @@ function switchPage(pageId, event) {
     // إظهار/إخفاء شريط الصوت المصغّر حسب الصفحة الحالية: يظهر داخل قسم
     // "القرآن الكريم" فقط، ويختفي تلقائيًا في بقية الصفحات دون إيقاف الصوت
     if (typeof syncGlobalPlayerVisibility === 'function') syncGlobalPlayerVisibility();
+
+    // تسجيل الانتقال في تاريخ المتصفح (History API) حتى يكون زر/إيماءة "الرجوع"
+    // في المتصفح أو التطبيق (WebView) يعيد المستخدم مباشرة إلى الصفحة الرئيسية
+    // بدل الخروج من التطبيق، وبدل المرور عبر كل صفحة زارها بالترتيب:
+    // - أول انتقال من الرئيسية إلى أي قسم آخر: يُضاف إدخال واحد جديد للتاريخ.
+    // - أي تنقّل لاحق بين الأقسام (غير الرئيسية): يستبدل الإدخال الحالي بدل
+    //   إضافة إدخال جديد، فيبقى إدخال واحد فقط فوق الرئيسية، وبالتالي أي
+    //   ضغطة "رجوع" من أي قسم تُعيد المستخدم للرئيسية مباشرة دومًا.
+    // - العودة يدويًا للرئيسية عبر القائمة: تُحدّث الحالة دون تكديس إدخالات.
+    if (!fromPopState) {
+        const currentState = history.state;
+        if (pageId === 'home') {
+            history.replaceState({ page: 'home' }, '', '#home');
+        } else if (!currentState || currentState.page === 'home') {
+            history.pushState({ page: pageId }, '', '#' + pageId);
+        } else {
+            history.replaceState({ page: pageId }, '', '#' + pageId);
+        }
+    }
+}
+
+// عند الضغط على زر/إيماءة الرجوع: نعرض الصفحة المخزّنة في حالة التاريخ بدل
+// السماح للمتصفح/التطبيق بالخروج من الموقع. إن لم توجد حالة مخزّنة (حالة
+// الدخول الأولى) نعتبرها الصفحة الرئيسية.
+window.addEventListener('popstate', function (e) {
+    const targetPageId = (e.state && e.state.page) ? e.state.page : 'home';
+    switchPage(targetPageId, null, true);
+});
+
+// عند أول تحميل للصفحة: نجعل حالة "الرئيسية" هي نقطة البداية في تاريخ
+// المتصفح، بحيث يحتاج المستخدم لضغطة رجوع فعلية إضافية بعد العودة للرئيسية
+// حتى يخرج من التطبيق (السلوك الطبيعي المتوقع)، بدل الخروج من أول ضغطة.
+if (!history.state) {
+    history.replaceState({ page: 'home' }, '', '#home');
 }
 
 // تمرير أفقي سلس لعناصر القائمة عبر عجلة الفأرة (تجربة أكثر احترافية على سطح المكتب)

@@ -1922,19 +1922,19 @@ img, svg, video { max-width: 100%; }
 
     .azkar-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        grid-template-columns: 1fr;
+        gap: 10px;
         padding: 2px;
     }
     .zikr-card {
-        padding: 8px;
+        padding: 10px;
         gap: 6px;
         border-radius: 12px;
     }
-    .zikr-text { font-size: calc(0.66rem * var(--zikr-font-scale)); line-height: 1.7; }
-    .zikr-desc { font-size: 0.55rem; padding: 2px 6px; border-radius: 6px; }
-    .zikr-footer { margin-top: 3px; padding-top: 6px; flex-wrap: wrap; gap: 4px; }
-    .zikr-count-btn { padding: 5px 8px; font-size: 0.62rem; gap: 3px; border-radius: 7px; }
+    .zikr-text { font-size: calc(0.78rem * var(--zikr-font-scale)); line-height: 1.8; }
+    .zikr-desc { font-size: 0.62rem; padding: 3px 8px; border-radius: 6px; }
+    .zikr-footer { margin-top: 5px; padding-top: 8px; flex-wrap: wrap; gap: 6px; }
+    .zikr-count-btn { padding: 6px 10px; font-size: 0.7rem; gap: 4px; border-radius: 7px; }
 
     /* قسم الرفيق الروحي - شبكة العادات بشكل أفقي واضح على الهاتف (بدون المساس بقسم الرقية الذكية) */
     .rafiq-habits-grid {
