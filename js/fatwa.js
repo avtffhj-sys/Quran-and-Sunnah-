@@ -1529,6 +1529,9 @@ function renderFatwaGrid(list) {
         return;
     }
 
+    // بناء كل البطاقات في DocumentFragment ثم إدراجها دفعة واحدة بدل استدعاء
+    // appendChild داخل الحلقة مرة لكل بطاقة (يقلّل إعادة حساب التخطيط).
+    const fragment = document.createDocumentFragment();
     list.forEach(item => {
         const card = document.createElement('div');
         card.className = 'fatwa-preview-card glass-panel';
@@ -1544,8 +1547,9 @@ function renderFatwaGrid(list) {
                 <span class="fatwa-read-more">قراءة الفتوى كاملة <i class="fa-solid fa-arrow-left"></i></span>
             </div>
         `;
-        grid.appendChild(card);
+        fragment.appendChild(card);
     });
+    grid.appendChild(fragment);
 }
 
 function switchFatwaCategory(cat, event) {

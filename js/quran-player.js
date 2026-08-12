@@ -693,6 +693,28 @@ function raceUrls(urls) {
     });
 }
 
+// يبحث عن قارئ آخر يملك نفس الرواية المحددة حاليًا (نفس moshaf.name بعد التطبيع)
+// ولديه هذه السورة مسجّلة فعليًا ضمن قائمة surah_list الخاصة به، ليُستخدم كبديل
+// عند تعذّر تشغيل السورة من القارئ الحالي، بدل القفز مباشرة لرواية مختلفة تمامًا
+// (حفص عن عاصم) كما كان يحدث سابقًا. هذا يحافظ على الرواية التي اختارها المستخدم.
+function findAlternateReciterForSurah(riwayaName, surahNumberInt, excludeReciterId) {
+    const normalizedWanted = normalizeRiwayaName(riwayaName) || riwayaName;
+    for (const r of recitersData) {
+        if (!r || !r.moshaf) continue;
+        if (excludeReciterId != null && r.id === excludeReciterId) continue;
+        for (const m of r.moshaf) {
+            if (normalizeRiwayaName(m.name) !== normalizedWanted) continue;
+            const available = parseSurahList(m.surah_list);
+            if (available.has(surahNumberInt)) {
+                const rawServer = m.server || '';
+                const server = rawServer.endsWith('/') ? rawServer : rawServer + '/';
+                return { reciter: r, moshaf: m, server };
+            }
+        }
+    }
+    return null;
+}
+
 async function playSurahAtIndex(server, index, reciter, moshaf) {
     if (index < 0 || index >= staticSurahNames.length) return;
     const name = staticSurahNames[index];
@@ -764,13 +786,35 @@ async function playSurahAtIndex(server, index, reciter, moshaf) {
         if (ok) return;
     }
 
-    // إن تعذّر تشغيل السورة من هذا القارئ/الرواية تمامًا، نشغّلها من خادم
-    // احتياطي موثوق حتى لا تبقى السورة معطّلة، مع توضيح ذلك للمستخدم
+    // إن تعذّر تشغيل السورة من هذا القارئ/الرواية تمامًا، نبحث أولًا عن قارئ آخر
+    // يملك نفس الرواية المحددة حاليًا ولديه هذه السورة مسجّلة فعليًا لديه، حتى
+    // تبقى الرواية التي اختارها المستخدم محفوظة قدر الإمكان بدل القفز لرواية مختلفة
+    if (playbackContext.index !== index) return;
+    const riwayaName = normalizeRiwayaName(moshaf.name) || 'حفص عن عاصم';
+    const alternate = findAlternateReciterForSurah(riwayaName, surahNumberInt, reciter.id);
+    if (alternate) {
+        const altUrl = `${alternate.server}${surahNum3}.mp3`;
+        const altOk = await tryPlayUrl(altUrl);
+        if (playbackContext.index !== index) return;
+        if (altOk) {
+            playbackContext.server = alternate.server;
+            playbackContext.reciter = alternate.reciter;
+            playbackContext.moshaf = alternate.moshaf;
+            updateNowPlaying(`سورة ${name}`, `${alternate.reciter.name} (${alternate.moshaf.name || ''})`);
+            showToast(`تعذّر تشغيل سورة ${name} من "${reciter.name}"، تم تشغيلها من "${alternate.reciter.name}" بنفس رواية "${riwayaName}".`);
+            return;
+        }
+    }
+
+    // لم يُعثر على قارئ آخر بنفس الرواية يملك هذه السورة (أو تعذّر تشغيله أيضًا)،
+    // فنلجأ كحل أخير لخادم احتياطي موثوق حتى لا تبقى السورة معطّلة، مع توضيح
+    // للمستخدم أن الرواية المشغَّلة ستكون مختلفة عن الرواية التي اختارها
     if (playbackContext.index !== index) return;
     const fallbackUrl = `${DEFAULT_FALLBACK_SERVER}${surahNum3}.mp3`;
     const fallbackOk = await tryPlayUrl(fallbackUrl);
     if (fallbackOk) {
-        showToast(`تعذّر تشغيل سورة ${name} من "${reciter.name}"، تم تشغيلها من قارئ آخر بدلًا منها.`);
+        playbackContext.server = DEFAULT_FALLBACK_SERVER;
+        showToast(`تعذّر تشغيل سورة ${name} من "${reciter.name}" ولم يُعثر على قارئ آخر بنفس الرواية، فتم تشغيلها برواية مختلفة بدلًا منها.`);
     } else {
         showToast(`تعذّر تشغيل سورة ${name} حاليًا، تحقق من اتصال الإنترنت.`);
     }
@@ -953,7 +997,7 @@ function renderSurahsGrid(reciter, moshaf) {
         const card = document.createElement('div');
         card.className = isAvailable ? 'surah-card glass-panel' : 'surah-card glass-panel surah-unavailable';
         if (!isAvailable) {
-            card.title = `سورة ${name} غير مسجّلة لدى "${reciter.name}" بهذه الرواية، ستُشغَّل تلقائيًا من قارئ آخر عند الضغط عليها.`;
+            card.title = `سورة ${name} غير مسجّلة لدى "${reciter.name}" بهذه الرواية، ستُشغَّل تلقائيًا من قارئ آخر بنفس الرواية عند الضغط عليها إن أمكن.`;
         }
         card.innerHTML = `
             <div>

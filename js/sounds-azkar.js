@@ -470,6 +470,58 @@ function warmupSoundsConnection() {
 
 let soundsOfflineUrlsCache = null;
 
+// عدّاد يُستخدَم لإلغاء أي عملية بناء متدرّج سابقة لم تكتمل بعد (مثلًا لو
+// كتب المستخدم حرفًا جديدًا في مربع البحث قبل انتهاء رسم القائمة السابقة)
+let __soundsRenderToken = 0;
+
+function buildSoundCard(s, isSaved) {
+    const card = document.createElement('div');
+    card.className = 'sound-item-card glass-panel';
+    card.innerHTML = `
+        <div class="sound-card-info">
+            <strong>${escapeHtml(s.title)}</strong>
+            <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">${escapeHtml(s.sheikh)}</div>
+            <div class="offline-badge" style="${isSaved ? '' : 'display:none;'}"><i class="fa-solid fa-check-circle"></i> متاح بدون إنترنت</div>
+        </div>
+        <div class="sound-card-actions">
+            <button class="surah-download-btn" title="تحميل مباشر إلى الهاتف">
+                <i class="fa-solid fa-download"></i>
+            </button>
+            <button class="offline-save-btn ${isSaved ? 'is-saved' : ''}" title="${isSaved ? 'محفوظ - اضغط للحذف' : 'حفظ للاستماع بدون نت'}">
+                <i class="fa-solid ${isSaved ? 'fa-check' : 'fa-cloud-arrow-down'}"></i>
+            </button>
+            <button class="btn-primary" style="padding: 8px 15px;"><i class="fa-solid fa-play"></i> استماع</button>
+        </div>`;
+
+    const downloadBtn = card.querySelector('.surah-download-btn');
+    downloadBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        downloadAudioFile(s.url, `${s.title} - ${s.sheikh}.mp3`);
+    });
+
+    const offlineBtn = card.querySelector('.offline-save-btn');
+    const offlineBadge = card.querySelector('.offline-badge');
+    offlineBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        await toggleSoundOffline(s, offlineBtn);
+        offlineBadge.style.display = offlineBtn.classList.contains('is-saved') ? 'flex' : 'none';
+    });
+
+    card.querySelector('.btn-primary').addEventListener('click', (e) => {
+        e.stopPropagation();
+        playSoundSmart(s);
+    });
+
+    // النقر في أي مكان على بطاقة الموعظة يشغّلها مباشرة دون الحاجة للضغط على الزر بدقة
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => playSoundSmart(s));
+    return card;
+}
+
+// بناء القائمة (قد تصل إلى 218 عنصرًا) على دفعات بدل إنشاء كل البطاقات في
+// نفس اللحظة: الدفعة الأولى تُعرض فورًا حتى يرى المستخدم النتيجة دون تأخير،
+// وباقي الدفعات تُبنى عبر requestAnimationFrame بحيث لا تحتكر أي منها المعالج
+// لفترة طويلة تكفي لجعل التمرير/التنقل يبدو متجمّدًا للحظة.
 function renderSoundsGrid(list) {
     const grid = document.getElementById('sounds-grid');
     if (!grid) return;
@@ -481,50 +533,24 @@ function renderSoundsGrid(list) {
         return;
     }
 
-    list.forEach(s => {
-        const isSaved = offlineUrls.has(s.url);
-        const card = document.createElement('div');
-        card.className = 'sound-item-card glass-panel';
-        card.innerHTML = `
-            <div class="sound-card-info">
-                <strong>${escapeHtml(s.title)}</strong>
-                <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">${escapeHtml(s.sheikh)}</div>
-                <div class="offline-badge" style="${isSaved ? '' : 'display:none;'}"><i class="fa-solid fa-check-circle"></i> متاح بدون إنترنت</div>
-            </div>
-            <div class="sound-card-actions">
-                <button class="surah-download-btn" title="تحميل مباشر إلى الهاتف">
-                    <i class="fa-solid fa-download"></i>
-                </button>
-                <button class="offline-save-btn ${isSaved ? 'is-saved' : ''}" title="${isSaved ? 'محفوظ - اضغط للحذف' : 'حفظ للاستماع بدون نت'}">
-                    <i class="fa-solid ${isSaved ? 'fa-check' : 'fa-cloud-arrow-down'}"></i>
-                </button>
-                <button class="btn-primary" style="padding: 8px 15px;"><i class="fa-solid fa-play"></i> استماع</button>
-            </div>`;
+    const myToken = ++__soundsRenderToken;
+    const CHUNK_SIZE = 24;
+    let i = 0;
 
-        const downloadBtn = card.querySelector('.surah-download-btn');
-        downloadBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            downloadAudioFile(s.url, `${s.title} - ${s.sheikh}.mp3`);
-        });
-
-        const offlineBtn = card.querySelector('.offline-save-btn');
-        const offlineBadge = card.querySelector('.offline-badge');
-        offlineBtn.addEventListener('click', async (e) => {
-            e.stopPropagation();
-            await toggleSoundOffline(s, offlineBtn);
-            offlineBadge.style.display = offlineBtn.classList.contains('is-saved') ? 'flex' : 'none';
-        });
-
-        card.querySelector('.btn-primary').addEventListener('click', (e) => {
-            e.stopPropagation();
-            playSoundSmart(s);
-        });
-
-        // النقر في أي مكان على بطاقة الموعظة يشغّلها مباشرة دون الحاجة للضغط على الزر بدقة
-        card.style.cursor = 'pointer';
-        card.addEventListener('click', () => playSoundSmart(s));
-        grid.appendChild(card);
-    });
+    function renderChunk() {
+        if (myToken !== __soundsRenderToken) return; // أُلغيت هذه العملية لصالح عملية أحدث
+        const fragment = document.createDocumentFragment();
+        const end = Math.min(i + CHUNK_SIZE, list.length);
+        for (; i < end; i++) {
+            const s = list[i];
+            fragment.appendChild(buildSoundCard(s, offlineUrls.has(s.url)));
+        }
+        grid.appendChild(fragment);
+        if (i < list.length) {
+            requestAnimationFrame(renderChunk);
+        }
+    }
+    renderChunk();
 }
 
 async function loadSounds() {
@@ -1570,6 +1596,7 @@ function switchAzkarCategory(category, event) {
     container.innerHTML = '';
 
     const list = azkarData[category] || [];
+    const fragment = document.createDocumentFragment();
     list.forEach((item, index) => {
         const card = document.createElement('div');
         card.className = 'zikr-card glass-panel';
@@ -1585,8 +1612,9 @@ function switchAzkarCategory(category, event) {
                 </button>
             </div>
         `;
-        container.appendChild(card);
+        fragment.appendChild(card);
     });
+    container.appendChild(fragment);
 
     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }

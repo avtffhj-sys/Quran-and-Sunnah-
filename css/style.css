@@ -90,6 +90,36 @@
         box-shadow: var(--shadow);
     }
 
+    /* تحسين أداء أساسي: البطاقات المتكررة التي تُبنى بالمئات عبر JS عند فتح
+       الأقسام (السور، الأناشيد/المواعظ، الإذاعات، الفتاوى، الأذكار) كانت تحمل
+       نفس فئة glass-panel، أي أن كل بطاقة منها كانت تفعّل خاصية backdrop-filter
+       المكلفة جدًا على المعالج/الرسوميات. مع وجود 100-200+ بطاقة ظاهرة أو قريبة
+       من الشاشة دفعة واحدة، هذا هو السبب الرئيسي للتقطّع المحسوس عند أول فتح
+       لهذه الأقسام (خصوصًا "القرآن الكريم" و"المواعظ"). بما أن لون الخلفية
+       (--bg-card) شبه معتم أصلًا (شفافية 75%-85%)، إلغاء الضبابية هنا لا يُغيّر
+       الشكل تقريبًا لكنه يوفّر عبء الرسم بشكل كبير:
+    */
+    .surah-card.glass-panel,
+    .sound-item-card.glass-panel,
+    .radio-card.glass-panel,
+    .fatwa-preview-card.glass-panel,
+    .zikr-card.glass-panel {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    /* تحسين أداء إضافي: تأجيل عمل التخطيط والرسم (layout/paint) للبطاقات غير
+       الظاهرة حاليًا على الشاشة ضمن هذه القوائم الطويلة، بدل حسابها كلها دفعة
+       واحدة عند البناء. المتصفح يعيد تفعيل الحساب تلقائيًا كلما اقترب العنصر
+       من منطقة الرؤية أثناء التمرير، دون أي تغيير في الشكل أو الترتيب. */
+    .surah-card,
+    .sound-item-card,
+    .fatwa-preview-card,
+    .zikr-card {
+        content-visibility: auto;
+        contain-intrinsic-size: 0 92px;
+    }
+
     .glass-header {
         background: var(--bg-glass);
         backdrop-filter: blur(16px);
