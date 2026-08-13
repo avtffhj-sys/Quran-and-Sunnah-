@@ -460,10 +460,22 @@
         flex-shrink: 0;
     }
 
-    .nav-links a:hover, .nav-links a.active {
+    .nav-links a.active {
         color: #fff;
         background: var(--primary);
         box-shadow: 0 4px 15px var(--glow);
+    }
+
+    /* :hover منفصل عن .active ومقيّد بالأجهزة التي تدعم تمرير فأرة حقيقي فقط،
+       لأن أجهزة اللمس (الهواتف) تُبقي حالة :hover "عالقة" على آخر عنصر تم لمسه
+       حتى بعد الانتقال إلى صفحة أخرى (بما في ذلك عبر زر الرجوع)، فتظهر علامة
+       التفعيل خطأً على القسم القديم رغم أن .active انتقلت فعليًا للقسم الصحيح. */
+    @media (hover: hover) and (pointer: fine) {
+        .nav-links a:hover {
+            color: #fff;
+            background: var(--primary);
+            box-shadow: 0 4px 15px var(--glow);
+        }
     }
 
     .toolbar { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
@@ -2087,20 +2099,39 @@ img, svg, video { max-width: 100%; }
 .nav-links a:nth-child(11) i { color: #ef4444; }
 .nav-links a:nth-child(12) i { color: #a855f7; }
 
-.nav-links a:hover i, .nav-links a.active i { color: #fff !important; transform: scale(1.18) rotate(-4deg); text-shadow: 0 0 12px rgba(255,255,255,0.55); }
+.nav-links a.active i { color: #fff !important; transform: scale(1.18) rotate(-4deg); text-shadow: 0 0 12px rgba(255,255,255,0.55); }
 
-.nav-links a:nth-child(1):hover,  .nav-links a:nth-child(1).active  { background: linear-gradient(135deg,#10b981,#059669) !important; box-shadow: 0 6px 16px rgba(16,185,129,0.4) !important; }
-.nav-links a:nth-child(2):hover,  .nav-links a:nth-child(2).active  { background: linear-gradient(135deg,#0ea5e9,#0369a1) !important; box-shadow: 0 6px 16px rgba(14,165,233,0.4) !important; }
-.nav-links a:nth-child(3):hover,  .nav-links a:nth-child(3).active  { background: linear-gradient(135deg,#8b5cf6,#6d28d9) !important; box-shadow: 0 6px 16px rgba(139,92,246,0.4) !important; }
-.nav-links a:nth-child(4):hover,  .nav-links a:nth-child(4).active  { background: linear-gradient(135deg,#f59e0b,#b45309) !important; box-shadow: 0 6px 16px rgba(245,158,11,0.4) !important; }
-.nav-links a:nth-child(5):hover,  .nav-links a:nth-child(5).active  { background: linear-gradient(135deg,#ec4899,#be185d) !important; box-shadow: 0 6px 16px rgba(236,72,153,0.4) !important; }
-.nav-links a:nth-child(6):hover,  .nav-links a:nth-child(6).active  { background: linear-gradient(135deg,#14b8a6,#0f766e) !important; box-shadow: 0 6px 16px rgba(20,184,166,0.4) !important; }
-.nav-links a:nth-child(7):hover,  .nav-links a:nth-child(7).active  { background: linear-gradient(135deg,#22c55e,#15803d) !important; box-shadow: 0 6px 16px rgba(34,197,94,0.4) !important; }
-.nav-links a:nth-child(8):hover,  .nav-links a:nth-child(8).active  { background: linear-gradient(135deg,#6366f1,#4338ca) !important; box-shadow: 0 6px 16px rgba(99,102,241,0.4) !important; }
-.nav-links a:nth-child(9):hover,  .nav-links a:nth-child(9).active  { background: linear-gradient(135deg,#f97316,#c2410c) !important; box-shadow: 0 6px 16px rgba(249,115,22,0.4) !important; }
-.nav-links a:nth-child(10):hover, .nav-links a:nth-child(10).active { background: linear-gradient(135deg,#06b6d4,#0e7490) !important; box-shadow: 0 6px 16px rgba(6,182,212,0.4) !important; }
-.nav-links a:nth-child(11):hover, .nav-links a:nth-child(11).active { background: linear-gradient(135deg,#ef4444,#b91c1c) !important; box-shadow: 0 6px 16px rgba(239,68,68,0.4) !important; }
-.nav-links a:nth-child(12):hover, .nav-links a:nth-child(12).active { background: linear-gradient(135deg,#a855f7,#7e22ce) !important; box-shadow: 0 6px 16px rgba(168,85,247,0.4) !important; }
+.nav-links a:nth-child(1).active  { background: linear-gradient(135deg,#10b981,#059669) !important; box-shadow: 0 6px 16px rgba(16,185,129,0.4) !important; }
+.nav-links a:nth-child(2).active  { background: linear-gradient(135deg,#0ea5e9,#0369a1) !important; box-shadow: 0 6px 16px rgba(14,165,233,0.4) !important; }
+.nav-links a:nth-child(3).active  { background: linear-gradient(135deg,#8b5cf6,#6d28d9) !important; box-shadow: 0 6px 16px rgba(139,92,246,0.4) !important; }
+.nav-links a:nth-child(4).active  { background: linear-gradient(135deg,#f59e0b,#b45309) !important; box-shadow: 0 6px 16px rgba(245,158,11,0.4) !important; }
+.nav-links a:nth-child(5).active  { background: linear-gradient(135deg,#ec4899,#be185d) !important; box-shadow: 0 6px 16px rgba(236,72,153,0.4) !important; }
+.nav-links a:nth-child(6).active  { background: linear-gradient(135deg,#14b8a6,#0f766e) !important; box-shadow: 0 6px 16px rgba(20,184,166,0.4) !important; }
+.nav-links a:nth-child(7).active  { background: linear-gradient(135deg,#22c55e,#15803d) !important; box-shadow: 0 6px 16px rgba(34,197,94,0.4) !important; }
+.nav-links a:nth-child(8).active  { background: linear-gradient(135deg,#6366f1,#4338ca) !important; box-shadow: 0 6px 16px rgba(99,102,241,0.4) !important; }
+.nav-links a:nth-child(9).active  { background: linear-gradient(135deg,#f97316,#c2410c) !important; box-shadow: 0 6px 16px rgba(249,115,22,0.4) !important; }
+.nav-links a:nth-child(10).active { background: linear-gradient(135deg,#06b6d4,#0e7490) !important; box-shadow: 0 6px 16px rgba(6,182,212,0.4) !important; }
+.nav-links a:nth-child(11).active { background: linear-gradient(135deg,#ef4444,#b91c1c) !important; box-shadow: 0 6px 16px rgba(239,68,68,0.4) !important; }
+.nav-links a:nth-child(12).active { background: linear-gradient(135deg,#a855f7,#7e22ce) !important; box-shadow: 0 6px 16px rgba(168,85,247,0.4) !important; }
+
+/* نفس تنسيقات :hover الملوّنة، لكن مقيّدة بالأجهزة التي تدعم فأرة حقيقية فقط
+   (انظر التعليق أعلى قاعدة .nav-links a.active الأساسية لشرح السبب) */
+@media (hover: hover) and (pointer: fine) {
+    .nav-links a:hover i { color: #fff !important; transform: scale(1.18) rotate(-4deg); text-shadow: 0 0 12px rgba(255,255,255,0.55); }
+
+    .nav-links a:nth-child(1):hover  { background: linear-gradient(135deg,#10b981,#059669) !important; box-shadow: 0 6px 16px rgba(16,185,129,0.4) !important; }
+    .nav-links a:nth-child(2):hover  { background: linear-gradient(135deg,#0ea5e9,#0369a1) !important; box-shadow: 0 6px 16px rgba(14,165,233,0.4) !important; }
+    .nav-links a:nth-child(3):hover  { background: linear-gradient(135deg,#8b5cf6,#6d28d9) !important; box-shadow: 0 6px 16px rgba(139,92,246,0.4) !important; }
+    .nav-links a:nth-child(4):hover  { background: linear-gradient(135deg,#f59e0b,#b45309) !important; box-shadow: 0 6px 16px rgba(245,158,11,0.4) !important; }
+    .nav-links a:nth-child(5):hover  { background: linear-gradient(135deg,#ec4899,#be185d) !important; box-shadow: 0 6px 16px rgba(236,72,153,0.4) !important; }
+    .nav-links a:nth-child(6):hover  { background: linear-gradient(135deg,#14b8a6,#0f766e) !important; box-shadow: 0 6px 16px rgba(20,184,166,0.4) !important; }
+    .nav-links a:nth-child(7):hover  { background: linear-gradient(135deg,#22c55e,#15803d) !important; box-shadow: 0 6px 16px rgba(34,197,94,0.4) !important; }
+    .nav-links a:nth-child(8):hover  { background: linear-gradient(135deg,#6366f1,#4338ca) !important; box-shadow: 0 6px 16px rgba(99,102,241,0.4) !important; }
+    .nav-links a:nth-child(9):hover  { background: linear-gradient(135deg,#f97316,#c2410c) !important; box-shadow: 0 6px 16px rgba(249,115,22,0.4) !important; }
+    .nav-links a:nth-child(10):hover { background: linear-gradient(135deg,#06b6d4,#0e7490) !important; box-shadow: 0 6px 16px rgba(6,182,212,0.4) !important; }
+    .nav-links a:nth-child(11):hover { background: linear-gradient(135deg,#ef4444,#b91c1c) !important; box-shadow: 0 6px 16px rgba(239,68,68,0.4) !important; }
+    .nav-links a:nth-child(12):hover { background: linear-gradient(135deg,#a855f7,#7e22ce) !important; box-shadow: 0 6px 16px rgba(168,85,247,0.4) !important; }
+}
 
 /* --- 2) بطاقات الخدمات الحديثة في الرئيسية (زكاة / قبلة / تسبيح) --- */
 .modern-service-card { border: 1.5px solid transparent; position: relative; }
