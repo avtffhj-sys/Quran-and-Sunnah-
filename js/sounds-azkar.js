@@ -1616,11 +1616,7 @@ function switchAzkarCategory(category, event) {
     });
     container.appendChild(fragment);
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    });
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function decrementZikr(category, index, initialCount) {

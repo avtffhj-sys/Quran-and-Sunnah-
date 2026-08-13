@@ -2255,12 +2255,12 @@ img, svg, video { max-width: 100%; }
 }
 .zikr-card::before {
     content: "";
-    position: absolute; top: 0; right: 0; left: -100%; width: 200%; height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary), var(--accent), var(--primary));
+    position: absolute; top: 0; right: 0; left: 0; height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+    background-size: 200% 100%;
     animation: zikrShimmer 4s linear infinite;
-    will-change: transform;
 }
-@keyframes zikrShimmer { 0% { transform: translateX(0%); } 100% { transform: translateX(50%); } }
+@keyframes zikrShimmer { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
 .zikr-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px var(--glow); }
 @media (prefers-reduced-motion: reduce) { .zikr-card::before { animation: none; } }
 
