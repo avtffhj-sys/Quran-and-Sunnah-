@@ -1150,7 +1150,7 @@
 
     .azkar-tab-btn.active i { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
-    .azkar-grid { scroll-margin-top: 150px; display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+    .azkar-grid { scroll-margin-top: 150px; display: grid; grid-template-columns: 1fr; gap: 20px; }
 
     .zikr-card {
         padding: 25px;
@@ -1922,19 +1922,19 @@ img, svg, video { max-width: 100%; }
 
     .azkar-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 8px;
         padding: 2px;
     }
     .zikr-card {
-        padding: 8px;
-        gap: 6px;
-        border-radius: 12px;
+        padding: 14px;
+        gap: 8px;
+        border-radius: 14px;
     }
-    .zikr-text { font-size: calc(0.66rem * var(--zikr-font-scale)); line-height: 1.7; }
-    .zikr-desc { font-size: 0.55rem; padding: 2px 6px; border-radius: 6px; }
-    .zikr-footer { margin-top: 3px; padding-top: 6px; flex-wrap: wrap; gap: 4px; }
-    .zikr-count-btn { padding: 5px 8px; font-size: 0.62rem; gap: 3px; border-radius: 7px; }
+    .zikr-text { font-size: calc(0.92rem * var(--zikr-font-scale)); line-height: 1.85; }
+    .zikr-desc { font-size: 0.7rem; padding: 3px 8px; border-radius: 6px; }
+    .zikr-footer { margin-top: 4px; padding-top: 8px; flex-wrap: wrap; gap: 6px; }
+    .zikr-count-btn { padding: 6px 10px; font-size: 0.75rem; gap: 4px; border-radius: 8px; }
 
     /* قسم الرفيق الروحي - شبكة العادات بشكل أفقي واضح على الهاتف (بدون المساس بقسم الرقية الذكية) */
     .rafiq-habits-grid {
@@ -2005,9 +2005,9 @@ img, svg, video { max-width: 100%; }
 
     .azkar-tab-btn { min-width: 0; min-height: 62px; font-size: 0.68rem; padding: 9px 6px; }
     .azkar-tab-btn i { font-size: 1rem; }
-    .azkar-grid { gap: 6px; }
-    .zikr-card { padding: 7px; }
-    .zikr-text { font-size: calc(0.6rem * var(--zikr-font-scale)); }
+    .azkar-grid { gap: 8px; }
+    .zikr-card { padding: 12px; }
+    .zikr-text { font-size: calc(0.86rem * var(--zikr-font-scale)); }
     .rafiq-habit-card { padding: 10px 8px; }
     .radio-card { padding: 10px 8px; }
 
@@ -2043,9 +2043,9 @@ img, svg, video { max-width: 100%; }
     .toolbar { gap: 4px; }
 
     .azkar-tab-btn { min-width: 0; min-height: 58px; font-size: 0.64rem; padding: 8px 4px; }
-    .azkar-grid { gap: 5px; }
-    .zikr-card { padding: 6px; }
-    .zikr-text { font-size: calc(0.56rem * var(--zikr-font-scale)); }
+    .azkar-grid { gap: 6px; }
+    .zikr-card { padding: 10px; }
+    .zikr-text { font-size: calc(0.8rem * var(--zikr-font-scale)); }
 
     /* التقويم الهجري والميلادي - أصغر الشاشات */
     .date-box { padding: 10px 5px 8px; gap: 4px; }
