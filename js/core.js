@@ -813,9 +813,28 @@ function switchPage(pageId, event, fromPopState) {
     // إلغاء أي عمل مؤجَّل من عملية تبديل صفحة سابقة لم يكتمل بعد
     __clearPageSwitchTimers();
 
-    document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
-    const targetPage = document.getElementById(`page-${pageId}`);
-    if (targetPage) targetPage.classList.add('active-page');
+    // انتقال سلس وطبيعي بين الصفحات: نُلاشي الصفحة الحالية أولًا (إن وُجدت
+    // ولم تكن هي نفسها الصفحة المطلوبة)، ثم نستبدلها بعد انتهاء التلاشي
+    // القصير بدل قطعها فجأة — يمنح إحساسًا بحركة طبيعية بدل "قفزة" مفاجئة
+    const currentActivePage = document.querySelector('.page-view.active-page');
+    const isSamePage = currentActivePage && currentActivePage.id === `page-${pageId}`;
+
+    const activateNewPage = () => {
+        document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page', 'leaving'));
+        const targetPage = document.getElementById(`page-${pageId}`);
+        if (targetPage) targetPage.classList.add('active-page');
+    };
+
+    // مدة تأخير ظهور الصفحة الجديدة (0 إن لم يكن هناك تلاشٍ لصفحة سابقة)، تُستخدم
+    // لتزامن أي إجراء لاحق يعتمد على ظهور الصفحة الجديدة فعليًا في DOM
+    let showDelay = 0;
+    if (currentActivePage && !isSamePage) {
+        showDelay = 150;
+        currentActivePage.classList.add('leaving');
+        __pageSwitchTimers.push(setTimeout(activateNewPage, showDelay));
+    } else {
+        activateNewPage();
+    }
 
     document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
     if (event && event.currentTarget) {
@@ -828,7 +847,7 @@ function switchPage(pageId, event, fromPopState) {
     if (pageId === 'fatwa') {
         __pageSwitchTimers.push(setTimeout(() => {
             document.getElementById('fatwa-categories')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 60));
+        }, showDelay + 60));
     } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -857,7 +876,7 @@ function switchPage(pageId, event, fromPopState) {
     }
 
     // إعادة حساب مؤشرات "يوجد المزيد" بعد ظهور القسم الجديد فعليًا في الصفحة
-    __pageSwitchTimers.push(setTimeout(() => { if (typeof refreshAllScrollHints === 'function') refreshAllScrollHints(); }, 80));
+    __pageSwitchTimers.push(setTimeout(() => { if (typeof refreshAllScrollHints === 'function') refreshAllScrollHints(); }, showDelay + 80));
 
     // إظهار/إخفاء شريط الصوت المصغّر حسب الصفحة الحالية: يظهر داخل قسم
     // "القرآن الكريم" فقط، ويختفي تلقائيًا في بقية الصفحات دون إيقاف الصوت

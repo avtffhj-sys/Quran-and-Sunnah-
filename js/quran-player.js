@@ -1,3 +1,14 @@
+// دالة تأخير بسيطة (debounce) لتقليل عدد مرات إعادة الرسم أثناء الكتابة
+// السريعة في مربعات البحث، بحيث يبقى التمرير/الكتابة سلسًا دون تجميد
+// المعالج بإعادة رسم كل قارئ/سورة مع كل ضغطة حرف.
+function debounce(fn, delay = 150) {
+    let timerId = null;
+    return function (...args) {
+        if (timerId) clearTimeout(timerId);
+        timerId = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
 async function loadReciters() {
     try {
         const res = await fetch('https://mp3quran.net/api/v3/reciters?language=ar');
@@ -338,7 +349,7 @@ document.getElementById('moshaf-select').addEventListener('change', (e) => {
     }
 });
 
-document.getElementById('reciter-search-input').addEventListener('input', (e) => {
+document.getElementById('reciter-search-input').addEventListener('input', debounce((e) => {
     const val = e.target.value.toLowerCase().trim();
     // احترام الرواية المختارة حاليًا: البحث يتم ضمن القراء المسجّلين بهذه
     // الرواية فقط إن كانت هناك رواية محددة، حتى لا يعيد اختيار قارئ آخر
@@ -364,20 +375,26 @@ document.getElementById('reciter-search-input').addEventListener('input', (e) =>
         }
         selectRiwayaForReciter(currentReciter, null);
     }
-});
+}, 120));
 
-document.getElementById('surah-search-input').addEventListener('input', (e) => {
+// كاش لعناصر بطاقات السور مع نصّها بحروف صغيرة، بدل استعلام DOM (querySelectorAll)
+// وإعادة قراءة textContent من جديد مع كل ضغطة حرف أثناء البحث
+let _surahCardsCache = null;
+function getSurahCardsCache() {
+    if (!_surahCardsCache || !_surahCardsCache.length || !document.body.contains(_surahCardsCache[0].el)) {
+        const cards = document.querySelectorAll('#surah-grid .surah-card');
+        _surahCardsCache = Array.from(cards).map(el => ({ el, text: el.textContent.toLowerCase() }));
+    }
+    return _surahCardsCache;
+}
+
+document.getElementById('surah-search-input').addEventListener('input', debounce((e) => {
     const query = e.target.value.toLowerCase().trim();
-    const cards = document.querySelectorAll('#surah-grid .surah-card');
-    cards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-        if (text.includes(query)) {
-            card.style.display = 'flex';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-});
+    const cards = getSurahCardsCache();
+    for (const { el, text } of cards) {
+        el.style.display = text.includes(query) ? 'flex' : 'none';
+    }
+}, 120));
 
 /* ============================================================
    إشعارات تقدّم التنزيل: تُستخدم عند تنزيل أي موعظة أو سورة من
@@ -981,6 +998,7 @@ function renderSurahsGrid(reciter, moshaf) {
     if (!reciter || !moshaf) return;
     const grid = document.getElementById('surah-grid');
     grid.innerHTML = '';
+    _surahCardsCache = null; // إبطال كاش بطاقات السور لأن الشبكة أُعيد بناؤها بالكامل
 
     const rawServer = moshaf.server || '';
     const server = rawServer.endsWith('/') ? rawServer : rawServer + '/';

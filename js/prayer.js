@@ -260,12 +260,15 @@ function startPrayerCountdown(timings) {
 
     if (prayerTimerInterval) clearInterval(prayerTimerInterval);
 
+    // نتتبّع اسم الصلاة القادمة الحالية لتفادي إعادة قراءة/تعديل DOM
+    // (querySelectorAll + classList) في كل ثانية طالما لم تتغيّر الصلاة القادمة؛
+    // فقط عدّاد الوقت (نص) يُحدَّث كل ثانية، وهذا أخف بكثير على المعالج
+    let lastNextPrayerKey = null;
+
     prayerTimerInterval = setInterval(() => {
         const now = new Date();
         let nextPrayer = null;
         let nextPrayerTime = null;
-
-        document.querySelectorAll('.prayer-card').forEach(c => c.classList.remove('next-prayer'));
 
         for (let p of prayers) {
             const [hours, minutes] = timings[p.key].split(':').map(Number);
@@ -287,8 +290,12 @@ function startPrayerCountdown(timings) {
             nextPrayer = prayers[0];
         }
 
-        const cardEl = document.getElementById(`card-${nextPrayer.key}`);
-        if (cardEl) cardEl.classList.add('next-prayer');
+        if (nextPrayer.key !== lastNextPrayerKey) {
+            document.querySelectorAll('.prayer-card').forEach(c => c.classList.remove('next-prayer'));
+            const cardEl = document.getElementById(`card-${nextPrayer.key}`);
+            if (cardEl) cardEl.classList.add('next-prayer');
+            lastNextPrayerKey = nextPrayer.key;
+        }
 
         const diff = nextPrayerTime - now;
         const hrs = Math.floor(diff / (1000 * 60 * 60)).toString().padStart(2, '0');
