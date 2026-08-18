@@ -49,8 +49,8 @@
          تسريع بدء التشغيل: نجلب هذين الملفين بأسلوب "غير معطّل للعرض" (preload ثم
          تفعيل كـ stylesheet بعد التحميل) بدل تحميلهما بشكل يوقف رسم الصفحة الأولى،
          مع الإبقاء على noscript كبديل كامل لأي متصفح لا يدعم onload على link. -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap"></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap"></noscript>
 
     <!-- FontAwesome Icons: نفس أسلوب التحميل غير المعطّل للعرض، دون حذف أي أيقونة من المكتبة -->
     <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
@@ -95,6 +95,7 @@
         img-src 'self' data: blob:;
         media-src 'self' https: blob:;
         connect-src 'self' http://localhost:5000 https://fatwa-api-p9op.onrender.com https://api.alquran.cloud https://mp3quran.net https://*.mp3quran.net https://api.aladhan.com https://cdn.jsdelivr.net https://stream.radiojar.com https://backup.qurango.net https://archive.org https://*.archive.org;
+        frame-src https://shamela.ws;
         object-src 'none';
         base-uri 'self';
         form-action 'self';
@@ -956,5 +957,6 @@
     <script src="js/rafiq.js"></script>
     <script src="js/murshid.js"></script>
     <script src="js/account-misc.js"></script>
+    <script src="js/pwa-install-custom.js" defer></script>
 </body>
 </html>

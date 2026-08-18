@@ -455,17 +455,16 @@ const soundsData = [
 // ونكتفي بمحاولة واحدة لكل جلسة تصفح حتى لا نستهلك بيانات المستخدم دون داع.
 let soundsWarmupDone = false;
 function warmupSoundsConnection() {
+    // تم تعطيل "التسخين المبكر" هنا: كان يرسل طلب HEAD بوضع no-cors إلى
+    // رابط أول موعظة في القائمة (soundsData[0].url) بمجرد فتح قسم "المواعظ".
+    // اتضح أن هذا الطلب المسبق يجعل متصفح Chrome يحجب لاحقًا التشغيل الفعلي
+    // لنفس هذا الرابط تحديدًا برسالة net::ERR_BLOCKED_BY_ORB عند الضغط على
+    // "استماع"، وهو ما كان يجعل قسم المواعظ يبدو "لا يعمل" (خصوصًا أول موعظة
+    // في القائمة). بما أن هذا التسخين كان تحسينًا اختياريًا للأداء فقط
+    // (وليس ميزة أساسية)، تعطيله يزيل السبب دون التأثير على أي شيء آخر:
+    // التشغيل، البحث، الحفظ بدون إنترنت... كل ذلك يبقى يعمل تمامًا كما هو.
     if (soundsWarmupDone || !soundsData.length) return;
     soundsWarmupDone = true;
-    try {
-        // مهم: نستخدم HEAD وليس GET هنا. طلب GET بلا قراءة محتواه لا يوقف
-        // التنزيل فعليًا في أغلب المتصفحات، فكان الكود القديم يُحمّل ملف
-        // الصوت الأول كاملاً في الخلفية بمجرد فتح قسم "المواعظ"، فيستهلك
-        // جزءًا من نطاق الشبكة (خصوصًا على الجوال) ويبطئ أي تشغيل فعلي
-        // يضغط عليه المستخدم بعدها مباشرة. HEAD يفتح نفس الاتصال
-        // (DNS + TLS) دون تنزيل أي بايت من جسم الملف.
-        fetch(soundsData[0].url, { method: 'HEAD', mode: 'no-cors' }).catch(() => {});
-    } catch (e) { /* التسخين اختياري وليس حرجًا، يمكن تجاهل أي خطأ هنا بأمان */ }
 }
 
 let soundsOfflineUrlsCache = null;
@@ -1587,6 +1586,32 @@ function resetZikrFontSize() {
     applyZikrFontScale(saved || 1);
 })();
 
+function buildZikrCard(item, category, index) {
+    const card = document.createElement('div');
+    card.className = 'zikr-card glass-panel';
+    card.innerHTML = `
+        <div>
+            ${item.desc ? `<span class="zikr-desc">${item.desc}</span>` : ''}
+            <div class="zikr-text" style="margin-top: 10px;">${item.text.replace(/\n/g, '<br>')}</div>
+        </div>
+        <div class="zikr-footer">
+            <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted);">التكرار: <span id="count-target-${category}-${index}">${item.count}</span></span>
+            <button class="zikr-count-btn" id="btn-${category}-${index}" onclick="decrementZikr('${category}', ${index}, ${item.count})">
+                <i class="fa-solid fa-hand-pointer"></i> قرأت (<span>${item.count}</span>)
+            </button>
+        </div>
+    `;
+    return card;
+}
+
+// نفس مبدأ البناء على دفعات المستخدم في renderSoundsGrid أعلاه: بعض أقسام
+// الأذكار (خصوصًا "أسماء الله الحسنى" التي تضم 99 بطاقة، وكذلك "أذكار
+// المساء" بـ 37 بطاقة) كانت تُبنى بالكامل في نفس اللحظة عبر forEach، فتحتكر
+// المعالج لفترة كافية لتبدو الشاشة متجمدة/متقطعة على هواتف أضعف من الحاسوب
+// عند فتح قسم "الأذكار" أو التنقل بين تبويباته. الحل: عرض أول دفعة فورًا
+// (يراها المستخدم دون أي تأخير محسوس)، وبناء الباقي عبر requestAnimationFrame
+// دفعة بعد دفعة، دون تغيير أي شيء في المحتوى أو شكل البطاقات نفسها.
+let __azkarRenderToken = 0;
 function switchAzkarCategory(category, event) {
     if (event) event.preventDefault();
     document.querySelectorAll('.azkar-tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1596,31 +1621,33 @@ function switchAzkarCategory(category, event) {
     container.innerHTML = '';
 
     const list = azkarData[category] || [];
-    const fragment = document.createDocumentFragment();
-    list.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'zikr-card glass-panel';
-        card.innerHTML = `
-            <div>
-                ${item.desc ? `<span class="zikr-desc">${item.desc}</span>` : ''}
-                <div class="zikr-text" style="margin-top: 10px;">${item.text.replace(/\n/g, '<br>')}</div>
-            </div>
-            <div class="zikr-footer">
-                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted);">التكرار: <span id="count-target-${category}-${index}">${item.count}</span></span>
-                <button class="zikr-count-btn" id="btn-${category}-${index}" onclick="decrementZikr('${category}', ${index}, ${item.count})">
-                    <i class="fa-solid fa-hand-pointer"></i> قرأت (<span>${item.count}</span>)
-                </button>
-            </div>
-        `;
-        fragment.appendChild(card);
-    });
-    container.appendChild(fragment);
+    const myToken = ++__azkarRenderToken;
+    const CHUNK_SIZE = 10;
+    let i = 0;
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    });
+    function renderChunk() {
+        if (myToken !== __azkarRenderToken) return; // أُلغيت هذه العملية لصالح تبويب أحدث
+        const fragment = document.createDocumentFragment();
+        const end = Math.min(i + CHUNK_SIZE, list.length);
+        for (; i < end; i++) {
+            fragment.appendChild(buildZikrCard(list[i], category, i));
+        }
+        container.appendChild(fragment);
+
+        if (i === end && end <= CHUNK_SIZE) {
+            // الدفعة الأولى فقط: نمرّر للقسم بعد ظهور أول محتوى مباشرة
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        }
+
+        if (i < list.length) {
+            requestAnimationFrame(renderChunk);
+        }
+    }
+    renderChunk();
 }
 
 function decrementZikr(category, index, initialCount) {

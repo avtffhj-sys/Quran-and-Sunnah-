@@ -896,12 +896,19 @@ function showOnThisDayEvent(match) {
     }
     const badge = document.getElementById('on-this-day-badge');
     if (badge) {
-        // نعرض التاريخ الهجري الكامل الحقيقي للحدث من fullDate
-        const approxGregorian = hijriToApproxGregorian(parseInt(match.year.replace('هـ', '')), match.month, match.day);
+        // نعرض التاريخ الهجري الكامل الحقيقي للحدث من fullDate، مقترنًا بتاريخ اليوم
+        // الميلادي الحقيقي والمضبوط تلقائيًا (وليس تاريخًا تقريبيًا محسوبًا من سنة
+        // الحدث التاريخي). كانت hijriToApproxGregorian تحاول تحويل سنة الحدث الهجرية
+        // (وقد تكون قديمة جدًا، أحيانًا بفارق مئات السنين عن اليوم) إلى تاريخ ميلادي
+        // عبر بحث تكراري محدود بـ 400 يوم فقط حول تاريخ اليوم، فلا يصل أبدًا لسنة
+        // بعيدة كهذه، وينتهي بإرجاع تاريخ عشوائي غير صحيح (كـ "13 يوليو 2025" رغم
+        // اختلاف اليوم الفعلي تمامًا). الحل: نعرض تاريخ اليوم الحقيقي مباشرة (يُقرأ
+        // من new Date() في كل مرة) لأن العنوان أصلاً "حدث في مثل هذا اليوم الهجري"،
+        // أي أن المقصود مطابقة اليوم الهجري الحالي، لا تاريخ وقوع الحدث تاريخيًا.
         badge.innerHTML =
             `<i class="fa-solid fa-moon"></i> ${match.fullDate}`
             + `<span style="opacity:.6;">•</span>`
-            + `<i class="fa-regular fa-calendar"></i> ${gregorianFullFormatter.format(approxGregorian)}م`;
+            + `<i class="fa-regular fa-calendar"></i> ${gregorianFullFormatter.format(new Date())}م`;
     }
 }
 

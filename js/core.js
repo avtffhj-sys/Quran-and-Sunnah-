@@ -731,6 +731,24 @@ async function fetchHadithFromApi(num = null) {
         titleDisplay.textContent = `${offlineBookNames[book] || item.source} - حديث شريف (وضع بلا إنترنت)`;
     };
 
+    // عند توفر الإنترنت لكن تعذّر جلب الحديث عبر الـ API، يوجَّه البحث إلى
+    // موقع المكتبة الشاملة بدل عرض الأحاديث المحفوظة محليًا (التي تبقى
+    // مخصّصة فقط لحالة انعدام الاتصال الفعلي بالإنترنت)
+    const showShamelaFallback = () => {
+        const bookName = offlineBookNames[book] || 'الحديث الشريف';
+        const shamelaUrl = `https://shamela.ws/search?query=${encodeURIComponent(bookName + ' حديث رقم ' + hadithNum)}`;
+        textDisplay.innerHTML = `
+            <div style="font-size:0.7em;color:var(--text-muted);font-weight:700;margin-bottom:10px;text-align:center;">تعذّر جلب هذا الحديث تلقائيًا، هذه نتيجة البحث عنه في المكتبة الشاملة:</div>
+            <div style="border:1px solid var(--border-color, #ddd); border-radius:12px; overflow:hidden; background:#fff;">
+                <iframe src="${shamelaUrl}" title="نتائج البحث في المكتبة الشاملة" style="width:100%; height:520px; border:0; display:block;" loading="lazy" referrerpolicy="no-referrer"></iframe>
+            </div>
+            <div style="text-align:center;margin-top:10px;">
+                <a href="${shamelaUrl}" target="_blank" rel="noopener noreferrer" style="font-size:0.65em;color:var(--accent-color, #2e7d32); text-decoration:underline; font-weight:700;">لم تظهر النتائج؟ افتح صفحة البحث في تبويب جديد</a>
+            </div>
+        `;
+        titleDisplay.textContent = `${bookName} - حديث رقم (${hadithNum})`;
+    };
+
     // إذا كان الجهاز غير متصل بالإنترنت أصلاً، اعرض الحديث المحفوظ محليًا
     // فورًا دون أي محاولة اتصال أو رسالة انتظار
     if (!navigator.onLine) { showOfflineFallback(); return; }
@@ -744,7 +762,7 @@ async function fetchHadithFromApi(num = null) {
         const timeoutId = setTimeout(() => controller.abort(), 4000);
         const res = await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/${book}/${hadithNum}.json`, { signal: controller.signal });
         clearTimeout(timeoutId);
-        if (!res.ok) { showOfflineFallback(); return; }
+        if (!res.ok) { showShamelaFallback(); return; }
         const data = await res.json();
         if (data && data.hadiths && data.hadiths[0]) {
             textDisplay.textContent = `"${data.hadiths[0].text}"`;
@@ -762,10 +780,10 @@ async function fetchHadithFromApi(num = null) {
             numInput.value = currentHadithNum;
             recordLastHadith(book, currentHadithNum, titleDisplay.textContent);
         } else {
-            showOfflineFallback();
+            showShamelaFallback();
         }
     } catch (e) {
-        showOfflineFallback();
+        showShamelaFallback();
     }
 }
 

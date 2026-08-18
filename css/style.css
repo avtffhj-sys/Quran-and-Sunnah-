@@ -1,6 +1,14 @@
     /* CSS Variables & Theme Definitions */
     :root {
+        /* خط الواجهة (عناوين، أزرار، تنقّل، شارات) — Cairo خط هندسي قوي وواضح يناسب عناصر التحكم القصيرة */
         --font-main: 'Cairo', sans-serif;
+        /* خط شريط التنقّل العلوي تحديدًا — Cairo بخط عريض واضح، مع سلسلة بدائل احترافية
+           (Tajawal ثم خطوط النظام العربية القياسية) لضمان ظهور واضح ومتّسق على كل الأجهزة
+           والمتصفحات حتى قبل اكتمال تحميل خط الويب أو في حال تعذّر تحميله */
+        --font-nav: 'Cairo', 'Tajawal', 'Segoe UI', Tahoma, 'Helvetica Neue', Arial, sans-serif;
+        /* خط نصوص الواجهة الطويلة (فقرات الوصف والشرح) — Tajawal أهدأ وأريح للقراءة المتصلة */
+        --font-body: 'Tajawal', 'Cairo', sans-serif;
+        /* خطوط النصوص الدينية (آيات القرآن والأحاديث) — لا تُستخدم في عناصر الواجهة ولا تتأثر بهذا التحديث */
         --font-quran: 'Amiri', serif;
         --font-hadith: 'Scheherazade New', 'Amiri', serif;
         --transition-speed: 0.3s;
@@ -41,13 +49,16 @@
 
     /* Dark & Light Modes */
     [data-theme="dark"] {
-        --bg-main: #090d16;
-        --bg-card: rgba(18, 24, 38, 0.75);
-        --bg-glass: rgba(9, 13, 22, 0.85);
-        --text-main: #f8fafc;
-        --text-muted: #94a3b8;
-        --border-color: rgba(255, 255, 255, 0.08);
-        --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        /* لوحة داكنة مُعاد ضبطها بالكامل: كحلي-رمادي عميق قريب من الأسود
+           بدل الأزرق الفاتح السابق، مع تعديل تدرّج النصوص والحدود والظل
+           بحيث تبدو الواجهة أكثر رصانة واحترافية وأقل إجهادًا للعين. */
+        --bg-main: #0b0f17;
+        --bg-card: rgba(21, 27, 39, 0.78);
+        --bg-glass: rgba(10, 13, 20, 0.92);
+        --text-main: #edf1f7;
+        --text-muted: #8d98ac;
+        --border-color: rgba(255, 255, 255, 0.07);
+        --shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
     }
 
     [data-theme="light"] {
@@ -75,10 +86,18 @@
         min-height: 100vh;
         overflow-x: hidden;
         scroll-behavior: smooth;
+        /* عرض أنظف وأوضح للخط العربي على شاشات الهواتف عالية الدقة */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
     }
 
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
+
+    /* فقرات نصوص الواجهة (الوصف والشرح) تستخدم خط Tajawal الأهدأ للقراءة؛
+       أي نص له كلاس أكثر تحديدًا (مثل نصوص القرآن والحديث) يبقى محتفظًا بخطه الخاص كما هو. */
+    p { font-family: var(--font-body); line-height: 1.8; }
 
     /* Glassmorphism UI Elements */
     .glass-panel {
@@ -353,7 +372,8 @@
     }
 
     .logo-text h1 {
-        font-size: 1.35rem;
+        /* حجم متدرّج بسلاسة حسب عرض الشاشة بدل القفز بين أحجام ثابتة عند كل نقطة توقف */
+        font-size: clamp(0.82rem, 0.5rem + 1.3vw, 1.35rem);
         font-weight: 900;
         color: var(--text-main);
         display: flex;
@@ -447,8 +467,10 @@
     }
 
     .nav-links a {
-        font-size: 0.8rem;
-        font-weight: 600;
+        font-family: var(--font-nav);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0;
         color: var(--text-muted);
         padding: 7px 11px;
         border-radius: 12px;
@@ -458,6 +480,8 @@
         gap: 5px;
         white-space: nowrap;
         flex-shrink: 0;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
     }
 
     .nav-links a.active {
@@ -596,7 +620,7 @@
         margin-bottom: 25px;
     }
 
-    .section-title { display: flex; align-items: center; gap: 12px; font-size: 1.4rem; font-weight: 800; }
+    .section-title { display: flex; align-items: center; gap: 12px; font-size: clamp(1.1rem, 0.95rem + 0.7vw, 1.4rem); font-weight: 800; }
     .section-title i { color: var(--primary); }
 
     .hero-section { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
@@ -1791,6 +1815,81 @@
    الهدف: أن يظهر كل عنصر بحجم واضح ومناسب دون تكدّس أو خروج عن الشاشة،
    مع إبقاء شريط "منصة القرآن والسنة" العلوي ثابتًا وواضحًا دائمًا.
    ========================================================================= */
+/* =========================================================================
+   إصلاح أداء التمرير على هواتف أندرويد (تهنيج/تعليق بسيط أثناء التمرير)
+   السبب: الشريط العلوي (main-header) وشريط الصوت العائم (global-audio-player)
+   عنصران ثابتان على الشاشة (sticky/fixed) ويستخدمان تمويه خلفية backdrop-filter،
+   وهو تأثير يُعاد حسابه من متصفح الجهاز في كل إطار أثناء تمرير المحتوى خلفهما.
+   معالجات الرسوميات في أغلب هواتف أندرويد أضعف من الحاسوب في هذه العملية تحديدًا،
+   فيظهر التهنيج البسيط رغم أن الأداء على الحاسوب سليم تمامًا.
+   الحل: إلغاء التمويه لهذين العنصرين فقط على الأجهزة اللمسية/الشاشات الصغيرة،
+   مع تعويضه بخلفية شبه معتمة (بلا شفافية تقريبًا) للحفاظ على نفس المظهر البصري
+   دون الحاجة لإعادة حساب التمويه في كل إطار. باقي عناصر الموقع (البطاقات، القوائم
+   المنبثقة، النوافذ المنبثقة) تبقى كما هي لأنها لا تُعاد رسمتها أثناء التمرير.
+   ========================================================================= */
+@media (max-width: 1024px), (pointer: coarse) {
+    .main-header {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(28, 36, 51, 0.94);
+    }
+    .global-audio-player {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(28, 36, 51, 0.96);
+    }
+    [data-theme="light"] .main-header {
+        background: rgba(255, 255, 255, 0.94);
+    }
+    [data-theme="light"] .global-audio-player {
+        background: rgba(255, 255, 255, 0.96);
+    }
+}
+
+/* =========================================================================
+   امتداد إصلاح الأداء أعلاه ليشمل بقية عناصر الموقع الزجاجية (glass-panel /
+   glass-header): تُستخدم هاتان الفئتان في كل بطاقات الموقع تقريبًا (بطاقات
+   السور، بطاقات الإذاعات، بطاقات الأصوات والأذكار حتى 218 بطاقة، بطاقات
+   الفتاوى، بطاقات الخدمات...)، وكل بطاقة منها تطبّق تمويه الخلفية (blur)
+   بشكل مستقل. الحاسوب يتحمّل عشرات/مئات طبقات التمويه هذه دون مشاكل، لكن
+   معالج الرسوميات في أغلب الهواتف يتعثر عندما تظهر عشرات البطاقات المموَّهة
+   معًا أثناء التمرير، فيظهر التهنيج أو التجمّد الذي وصفه المستخدم رغم أن
+   الشريط العلوي وشريط الصوت (المعالَجَين أعلاه) لم يعودا سببًا للمشكلة.
+   الحل: نفس المبدأ - إلغاء التمويه على الأجهزة اللمسية/الشاشات الصغيرة لكل
+   عنصر يحمل glass-panel أو glass-header، مع رفع عتامة الخلفية القياسية
+   (المتغيرات bg-card / bg-glass) قليلاً لتعويض غياب التمويه بصريًا.
+
+   السبب الحقيقي المتبقي للتجمّد في قسم "الأذكار" تحديدًا: كل بطاقة ذكر
+   (.zikr-card) تحمل شريطًا زخرفيًا علويًا (::before) بتحريك CSS لا نهائي
+   (zikrShimmer) يحرّك background-position. هذه الخاصية غير قابلة للتسريع
+   عبر معالج الرسوميات (compositor) فيضطر المتصفح لإعادة رسم (repaint) هذا
+   الشريط في كل إطار، لكل بطاقة على حدة، طوال بقاء القسم مفتوحًا - وليس مرة
+   واحدة عند التحميل فقط. في تبويب "أسماء الله الحسنى" وحده هناك 99 بطاقة
+   تعمل كلها معًا في نفس اللحظة (37 بطاقة في أذكار المساء، وهكذا)، فتتحول
+   إلى إعادة رسم لا نهائية ومتكررة تُنهك معالج الرسوميات الأضعف في الهواتف
+   وتظهر كتجمّد/تهنيج مستمر - بينما الحاسوب يتحمّلها دون ملاحظة. الحل: تعطيل
+   هذا التحريك تمامًا على الأجهزة اللمسية/الشاشات الصغيرة (يبقى الشريط
+   ظاهرًا كخط تدرّج لوني ثابت بلا حركة)، بنفس مبدأ إلغاء التمويه أعلاه. */
+@media (max-width: 1024px), (pointer: coarse) {
+    [data-theme="dark"] {
+        --bg-card: rgba(21, 27, 39, 0.96);
+        --bg-glass: rgba(10, 13, 20, 0.98);
+    }
+    [data-theme="light"] {
+        --bg-card: rgba(255, 255, 255, 0.94);
+        --bg-glass: rgba(241, 245, 249, 0.96);
+    }
+    .zikr-card::before {
+        animation: none;
+    }
+    .glass-panel,
+    .glass-header,
+    .azkar-tab-btn {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
 html, body { max-width: 100%; overflow-x: hidden; }
 img, svg, video { max-width: 100%; }
 
@@ -1860,12 +1959,12 @@ img, svg, video { max-width: 100%; }
     }
     .logo-area { gap: 10px; }
     .logo-icon-box { width: 40px; height: 40px; font-size: 1.2rem; border-radius: 12px; }
-    .logo-text h1 { font-size: 1rem; white-space: nowrap; }
+    .logo-text h1 { white-space: nowrap; }
     .logo-text span.sub-title { display: none; }
     .toolbar { gap: 6px; }
     .tool-btn { width: 36px; height: 36px; font-size: 0.9rem; border-radius: 12px; }
     .nav-links-outer { margin-top: 2px; }
-    .nav-links a { font-size: 0.75rem; padding: 6px 10px; }
+    .nav-links a { font-family: var(--font-nav); font-size: 0.78rem; font-weight: 700; padding: 6px 10px; }
 
     .container { margin-top: 16px !important; padding: 16px 14px 40px; gap: 26px; }
 
@@ -1874,7 +1973,6 @@ img, svg, video { max-width: 100%; }
     .hero-banner p { font-size: 0.92rem; }
 
     .quote-text { font-size: clamp(1.25rem, 5vw, 1.7rem); line-height: 1.9; }
-    .section-title { font-size: 1.1rem; }
     .zikr-text { font-size: calc(1.02rem * var(--zikr-font-scale)); }
     .evidence-text { font-size: 1.02rem; }
 
@@ -2001,7 +2099,6 @@ img, svg, video { max-width: 100%; }
 
 @media (max-width: 480px) {
     #current-track-title { max-width: 36vw; font-size: 0.78rem !important; }
-    .logo-text h1 { font-size: 0.9rem; }
     .logo-area { gap: 8px; }
     .logo-icon-box { width: 34px; height: 34px; font-size: 1rem; }
     .main-header { padding: 8px 12px; }
@@ -2048,7 +2145,6 @@ img, svg, video { max-width: 100%; }
     .player-logo-icon { width: 26px; height: 26px; font-size: 0.9rem; }
     .player-controls button { width: 27px; height: 27px; font-size: 0.85rem; }
     .player-controls button.main-play { width: 33px; height: 33px; font-size: 0.95rem; }
-    .logo-text h1 { font-size: 0.82rem; }
     .logo-icon-box { width: 30px; height: 30px; font-size: 0.9rem; }
     .main-header { padding: 8px 10px; gap: 6px; top: 10px; }
     .tool-btn { width: 30px; height: 30px; font-size: 0.8rem; }

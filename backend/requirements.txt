@@ -1,0 +1,6 @@
+Flask
+flask-cors
+requests
+pywebpush
+supabase
+Werkzeug

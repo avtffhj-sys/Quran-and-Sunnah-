@@ -786,14 +786,27 @@ async function playSurahAtIndex(server, index, reciter, moshaf) {
         // نادرًا ما تفشل السورة بعينها مع صيغة صالحة لباقي السور؛ نتابع للفحص الكامل أدناه
     }
 
-    // نفحص صيغ الترقيم الشائعة (001 ثم 01 ثم 1) بالتوازي عبر عناصر صوت مؤقتة صامتة
-    // بدل تجربتها تباعًا على عنصر التشغيل نفسه، فيبدأ التشغيل بأسرع ما يمكن
+    // نجرّب أولًا الصيغة الأكثر شيوعًا (001) مباشرة على عنصر التشغيل الفعلي نفسه
+    // (بدل فحصها أولًا عبر عناصر صوت مؤقتة منفصلة) حتى يبقى استدعاء play() قريبًا
+    // جدًا من ضغطة المستخدم؛ فبعض المتصفحات (خصوصًا Safari على الآيفون) ترفض
+    // تشغيل الصوت تلقائيًا إذا مرّ وقت طويل بين الضغطة الفعلية واستدعاء play()
+    // بسبب انتظار نتيجة الفحص المتوازي — وهو ما كان يجعل التشغيل يفشل من أول
+    // ضغطة عند تبديل القارئ (خادم جديد غير مخزَّن في serverFormatCache)، وينجح
+    // فقط من الضغطة الثانية بعد أن تصبح الصيغة الصحيحة محفوظة في الكاش.
+    if (playbackContext.index !== index) return;
+    const directOk = await tryPlayUrl(`${server}${surahNum3}.mp3`);
+    if (playbackContext.index !== index) return;
+    if (directOk) {
+        serverFormatCache.set(server, 3);
+        return;
+    }
+
+    // فشلت الصيغة الشائعة (001): نفحص باقي الصيغ (01 ثم 1) بالتوازي عبر عناصر
+    // صوت مؤقتة صامتة لتحديد الصيغة الصحيحة لهذا الخادم قبل تجربتها فعليًا
     const candidateUrls = [
-        { url: `${server}${surahNum3}.mp3`, len: 3 },
         { url: `${server}${surahNum2}.mp3`, len: 2 },
         { url: `${server}${surahNum1}.mp3`, len: 1 }
     ];
-    if (playbackContext.index !== index) return;
     const winnerUrl = await raceUrls(candidateUrls.map(c => c.url));
     if (playbackContext.index !== index) return; // المستخدم بدّل السورة أثناء الفحص
     if (winnerUrl) {
@@ -1275,6 +1288,29 @@ function trySoundUrl(url, options) {
 
 // يشغّل مقطعًا صوتيًا: من النسخة المحفوظة محليًا إن وُجدت، وإلا من الشبكة مباشرة
 async function playSoundSmart(s) {
+    // "تحرير" عنصر الصوت (unlock) فورًا وبشكل متزامن تمامًا مع نقرة المستخدم، قبل
+    // أي عملية غير متزامنة (await). السبب الحقيقي لحاجة الضغط عدة مرات: أول شيء
+    // كانت تفعله الدالة هو انتظار (await) قراءة قاعدة IndexedDB (getSoundOffline)
+    // قبل استدعاء audio.play() فعليًا. هذا الانتظار — ولو كان قصيرًا جدًا — كافٍ
+    // لدى متصفحات مثل Safari/iOS لاعتبار أن استدعاء play() اللاحق لم يعد "ناتجًا
+    // مباشرة عن بادرة مستخدم"، فيرفضه المتصفح بصمت (NotAllowedError) دون أي خطأ
+    // ظاهر، وتبقى "استماع" بلا أثر. الحل: نستدعي play() على نفس عنصر <audio>
+    // فورًا هنا (مكتومًا حتى لا يُسمع أي صوت سابق لجزء من الثانية) لتسجيل هذا
+    // الاستدعاء كجزء من بادرة النقرة نفسها، ثم نوقفه فورًا. هذا "يحرر" العنصر لدى
+    // Safari، فتنجح استدعاءات play() اللاحقة على نفس العنصر (بعد تغيير مصدره)
+    // حتى لو جاءت بعد await، لأن التحرير مرتبط بالعنصر نفسه وليس بكل استدعاء.
+    try {
+        const wasMuted = audio.muted;
+        audio.muted = true;
+        const unlockPromise = audio.play();
+        audio.pause(); // إيقاف فوري ومتزامن (بدون انتظار الوعد) لتفادي أي تعارض
+                        // مع تشغيل المقطع الحقيقي القادم بعد قليل من نفس الدالة
+        if (unlockPromise && typeof unlockPromise.catch === 'function') {
+            unlockPromise.catch(() => { /* رفض متوقع وغير ضار: نتجاهله */ });
+        }
+        audio.muted = wasMuted;
+    } catch (e) { /* تجاهل: هذا مجرد تحرير احترازي، لا يؤثر إن فشل */ }
+
     if (lastSoundBlobUrl) {
         URL.revokeObjectURL(lastSoundBlobUrl);
         lastSoundBlobUrl = null;
